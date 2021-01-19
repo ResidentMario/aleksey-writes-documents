@@ -1,0 +1,47 @@
+[
+    {
+        "uid": "chollet-dev-exp.html",
+        "link": "https://blog.quiltdata.com/fran%C3%A7ois-chollet-wants-you-to-care-about-developer-experience-5fd049e45642",
+        "backup": "https://web.archive.org/web/20190614050018if_/https://blog.quiltdata.com/fran%C3%A7ois-chollet-wants-you-to-care-about-developer-experience-5fd049e45642"
+    },
+    {
+        "uid": "progressive-resizing-keras.html",
+        "link": "https://towardsdatascience.com/boost-your-cnn-image-classifier-performance-with-progressive-resizing-in-keras-a7d96da06e20",
+        "backup": "https://web.archive.org/web/20190403222338if_/https://towardsdatascience.com/boost-your-cnn-image-classifier-performance-with-progressive-resizing-in-keras-a7d96da06e20"
+    },
+    {
+        "uid": "keras-eval-yellowbricks.html",
+        "link": "https://towardsdatascience.com/evaluating-keras-neural-network-performance-using-yellowbrick-visualizations-ad65543f3174",
+        "backup": "https://web.archive.org/web/20190403222344/https://towardsdatascience.com/evaluating-keras-neural-network-performance-using-yellowbrick-visualizations-ad65543f3174?gi=28f426607041"
+    },
+    {
+        "uid": "open-images-classifier.html",
+        "link": "https://medium.com/free-code-camp/how-to-classify-photos-in-600-classes-using-nine-million-open-images-65847da1a319",
+        "backup": "https://web.archive.org/web/20191201082132/https://medium.com/free-code-camp/how-to-classify-photos-in-600-classes-using-nine-million-open-images-65847da1a319"
+    },
+    {
+        "uid": "python-module-loaders-finders.html",
+        "link": "https://blog.quiltdata.com/import-almost-anything-in-python-an-intro-to-module-loaders-and-finders-f5e7b15cda47",
+        "backup": "https://web.archive.org/web/20190403044848/https://blog.quiltdata.com/import-almost-anything-in-python-an-intro-to-module-loaders-and-finders-f5e7b15cda47?gi=97d842a83f9f"
+    },
+    {
+        "uid": "quilt-value-prop.html",
+        "link": "https://blog.quiltdata.com/bring-order-to-data-chaos-with-quilt-t4-e5d9058f4d36",
+        "backup": "https://web.archive.org/web/20190429211651if_/https://blog.quiltdata.com/bring-order-to-data-chaos-with-quilt-t4-e5d9058f4d36"
+    },
+    {
+        "uid": "reproduce-in-four-loc.html",
+        "link": "https://blog.quiltdata.com/reproduce-a-machine-learning-model-build-in-four-lines-of-code-b4f0a5c5f8c8",
+        "backup": "https://web.archive.org/web/20190308081346if_/https://blog.quiltdata.com/reproduce-a-machine-learning-model-build-in-four-lines-of-code-b4f0a5c5f8c8"
+    },
+    {
+        "uid": "sagemaker-intro.html",
+        "link": "https://towardsdatascience.com/building-fully-custom-machine-learning-models-on-aws-sagemaker-a-practical-guide-c30df3895ef7",
+        "backup": "https://web.archive.org/web/20190725203020/https://towardsdatascience.com/building-fully-custom-machine-learning-models-on-aws-sagemaker-a-practical-guide-c30df3895ef7?gi=2ca898cfe736"
+    },
+    {
+        "uid": "rubbish-san-francisco.html",
+        "link": "https://medium.com/rubbish-love/130-000-reasons-why-data-science-can-help-clean-up-san-francisco-6412eba1e374",
+        "backup": "https://web.archive.org/web/20190918190320/https://medium.com/rubbish-love/130-000-reasons-why-data-science-can-help-clean-up-san-francisco-6412eba1e374"
+    }
+]
