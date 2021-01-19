@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel= "stylesheet" type= "text/css" href= "https://www.residentmar.io/static/css/app.css">
+	<link rel= "stylesheet" type= "text/css" href= "/static/css/roboto.css">
+	<link rel="icon" type="image/x-icon" href="/static/design_elements/code-writer-black.png"/>
+    <link rel="alternate" type="application/rss+xml" title="Data Hacks Feed" href="https://www.residentmar.io/feed" />
+    
+<link href="/static/css/prism.css" rel="stylesheet" />
+<script src="/static/js/prism.js"></script>
+
+    <title>
+    Aleksey Bilogur—
+    Blog
+	</title>
+</head>
+
+<body>
+	<div id="header">
+		 Aleksey Bilogur &nbsp;
+		<img src="/static/design_elements/code-writer.svg" alt="Icon." style="height:65px; position:absolute; top:5px"/>
+	</div>
+	<div id="navbar">
+	<div style="float:left; font-size:18px; margin-top:12px;">
+        
+            <a href="/" class="navigation-link">blog</a>
+        
+        &nbsp;&nbsp;
+        
+            <a href="/portfolio.html" class="navigation-link">portfolio</a>
+        
+        &nbsp;&nbsp;
+        
+            <a href="/advocacy.html" class="navigation-link">advocacy</a>
+        
+        &nbsp;&nbsp;
+        <a href="https://github.com/residentmario" class="navigation-link">github</a>&nbsp;&nbsp;
+        <a href="https://twitter.com/residentmario" class="navigation-link">twitter</a>&nbsp;&nbsp;
+        
+            <a href="/about.html" class="navigation-link">about</a>
+        
+        &nbsp;&nbsp;
+    </div>
+	</div>
+	<div id="frame">
+		<div id="content">
+			
+<h2>
+Is Starbucks really always two blocks away?
+</h2>
+<!--<span id="postdate"></span>-->
+<span id="postdate">02/09/2016</span>
+
+
+			
+
+<p>
+    This one started on Reddit.
+</p>
+
+<p>
+    Someone on r/NYC <a
+        href="https://www.reddit.com/r/nyc/comments/44hjol/this_is_a_9_cheeseburger_from_brgr_on_61st_and/czr22cf">complained
+    </a> (naturally) about the poor quality of an overpriced burger they bought at a restaurant chain, and <a
+        href="https://www.reddit.com/user/seancurry1">u/seancurry1</a> took the time to share a life story relevant to
+    the topic:
+</p>
+
+<div class="reddit-embed" data-embed-media="www.redditmedia.com" data-embed-parent="false" data-embed-live="true" data-embed-created="2016-02-21T17:16:44.289Z"><a href="https://www.reddit.com/r/nyc/comments/44hjol/this_is_a_9_cheeseburger_from_brgr_on_61st_and/czr22cf">Comment</a> from discussion <a href="https://www.reddit.com/r/nyc/comments/44hjol/this_is_a_9_cheeseburger_from_brgr_on_61st_and/">This is a $9+ cheeseburger from BRGR on 61st and 3rd, posted on /r/mildlyinfuriating. This is why I ignore Yelp skeptics. How are places like this even staying open in midtown?</a>.</div><script async src="https://www.redditstatic.com/comment-embed.js"></script>
+
+<p>
+    Leaving aside the usual heckling-of-the-tourists&mdash;although I admit, having lived here all of my life, I do
+    enjoy a good heckling&mdash;one wonders whether or not this statement really is true. Starbucks baristas always
+    (or almost always) ask for your name when serving your order, but I have long since given up on my real name,
+    going by the pseudonym Al whenever I'm on location. Well, the last two times I've been in a Starbucks I've
+    gotten back "Ale". Not the good kind. Come on guys. Two letters.
+</p>
+
+<p>
+    It's pretty well established that no one actually really likes Starbucks (except maybe <a
+        href="https://en.wikipedia.org/wiki/Howard_Schultz">this guy</a>), but we all tolerate it well enough, and
+    you do have to respect their business acumen, because they really do seem to be literally everywhere. But is it
+    really true that every two blocks, no matter which direction, another Starbucks calls? This is a hypothesis worth
+    putting under the microscope.
+</p>
+
+<h3>Mapping coordinates</h3>
+
+<p>
+    First and foremost I needed some sort of way of actually getting every instance of a chain in Manhattan. There
+    are two major APIs available for this sort of job that I am aware of, <a
+        href="https://www.yelp.com/developers/api_console">Yelp!</a> and <a
+        href="https://developers.google.com/maps/">Google Maps</a> (and maybe
+    Foursquare), and Yelp! turned out to be the better of the two. Yelp! lists its businesses in ascending order: so
+    "dunkin-donuts-3" accedes to "dunkin-donuts-4", then "dunkin-donuts-5", and so on down the line of infamy. Using
+    their <a href="https://github.com/Yelp/yelp-python">Python driver</a> and taking the time to check for stores
+    which have closed, it's a simple enough matter to gather a list of every instance of their "biz" (Yelp! URLs are
+    in the form <code class="inline_code">http://www.yelp.com/biz/[...]</code>).
+</p>
+
+<p>
+    If you're the sort that likes reading code (I know I am), here's the core of it:
+</p>
+
+<pre><code class="language-python">
+def fetch_businesses(name, area='New York', manual_override=0):
+    area = area.lower().replace(' ', '-')
+    name = name.lower().replace(' ', '-')
+    i = 2
+    # Run the first one through by hand.
+    try:
+        responses = [client.get_business("{0}-{1}".format(name, area))]
+    # This can happen, and did, in the Dunkin' Donuts case.
+    except BusinessUnavailable:
+        responses = []
+        pass
+    # The rest are handled by a loop.
+    while True:
+        bus_id = "{0}-{1}-{2}".format(name, area, i)
+        try:
+            response = client.get_business(bus_id)
+        except BusinessUnavailable:
+            # We manually check trouble spots.
+            # But see the TODO.
+            if requests.get('http://www.yelp.com/biz/' + bus_id).status_code != requests.codes.ok:
+                break
+            else:
+                # Increment the counter but don't include the troubled ID.
+                i += 1
+                continue
+        responses += [response]
+        i += 1
+    print("Ended `fetch_businesses()` on:", "http://www.yelp.com/biz/" + bus_id)
+    return responses
+    </code></pre>
+
+<p>
+    I used <a href="http://folium.readthedocs.org/en/latest/">folium</a> (the Python driver for <a
+        href="http://leafletjs.com/">leaflet.js</a>) to get a sense of the data. Here's the coordinate map for
+    <a href="http://www.gregoryscoffee.com/">Gregory's Coffee</a>, a locally-grown coffee chain that some of my
+    friends know that I love to hate (their logo is literally their founder's well-coiffed head&mdash;tacky) but go
+    to anyway:
+</p>
+
+<iframe src="https://www.residentmar.io/visualizations/gregorys-map-visualization.html" marginwidth="0" marginheight="0"
+        scrolling="no" class="inline_iframe"></iframe>
+
+<p>
+    No word yet on the Williamsburg location. Playing around with these maps you can even find some weird discrepancies
+    in Yelp's data. The following coordinate map for Dunkin Donuts, for instance, reveals a franchise
+    nominally in "New York" but actually way out north in Rockaway County:
+</p>
+
+<iframe src="https://www.residentmar.io/visualizations/dunkin-donuts-map-visualization.html" marginwidth="0"
+        marginheight="0" scrolling="no" class="inline_iframe"></iframe>
+
+<p>
+    And here's the Starbucks map. Your analysis is only as good as your data, of course, and a large number of <a
+        href="https://www.reddit.com/r/nyc/comments/44x90z/is_starbucks_really_always_two_blocks_away_oc/">comments
+</a> on the corresponding Reddit post for this thread point out that the paucity of outer borough locations on this
+    map is incorrect, as <a
+        href="https://www.yelp.com/search?find_desc=starbucks&find_loc=Crown+Heights%2C+Brooklyn%2C+NY">many
+        locations</a> are actually instead ID'd either by borough or, amazingly, by neighborhood! The Yelp! API
+    documentation, annoyingly, is actually mum on this fact. It's not practical to try to scrape data by borough and
+    by neighborhood, however, but after digging around for a bit in their data it appears that this never happens in
+    Manhattan&mdash;only in the outer boroughs. Since we're focusing on Manhattan in this post, net-net this doesn't
+    impact our analysis later on&mdash;but the data on locations outside of Manhattan displayed here should be taken
+    with a grain of salt, as it is extremely partial.
+</p>
+
+<iframe src="https://www.residentmar.io/visualizations/starbucks-map-visualization.html" marginwidth="0" marginheight="0"
+        scrolling="no" class="inline_iframe"></iframe>
+
+<p>
+    If you scroll in and look around for a bit, it becomes immediately obvious that, ok, there are a <b>lot</b> of
+    areas in Manhattan which are absolutely not always in a two-block radius of a pumkin spice latte. But amazingly,
+    there are also a decent number of areas that always are. Try navigating through the Financial District or through
+    Midtown without hitting one location or other, for instance&mdash;you won't get far. And Columbus Circle, the
+    precise point of interest in our story? Awash in them.
+</p>
+
+<h3>Calculating average distance</h3>
+
+<p>
+    This still doesn't answer the question on my mind, though: on average, how far away are you from a Starbucks? To
+    figure that out we have to go a little deeper. We start with the following point cloud of 2000 random
+    locations in Manhattan:
+</p>
+
+<iframe src="https://www.residentmar.io/visualizations/manhattan-point-cloud-visualization.html" marginwidth="0"
+        marginheight="0" scrolling="no" style="height:540px" class="inline_iframe"
+></iframe>
+
+<p>
+    This point cloud uses an underlying <a href="http://geojson.org/">GeoJSON</a> layer data (hand-drawn using the
+    wonderful <a href="http://geojson.io/">geojson.io web-app</a>). I then constructed uniformly random variables
+    within the "Manhattanite" <a href="https://en.wikipedia.org/wiki/Minimum_bounding_box">bounding box</a>, and us
+    ed a <a href="https://en.wikipedia.org/wiki/Point_in_polygon">point-in-polygon algorithm</a> to verify interior
+    points until I got 2000 of them.
+</p>
+
+<p>
+    By taking a measure of the smallest distance between a uniformally distributed random sample of points in
+    Manhattan and a list of chain locations, and then taking the average of the resulting distances, we get an
+    accurate measure of nearness. It's possible to use an even larger sample, but 2000 points turned out to be more
+    than enough once I threw them at my distance measurement algorithms: you don't really gain much in the way of
+    accuracy using more, and you lose a lot of speed.
+</p>
+
+<p>
+    And with that done, one data crunch later, we get our answer. If you were randomly dropped anywhere in Manhattan,
+    anywhere at all, the nearest Starbucks would be, on average, a mere <b>1335 feet</b> away.
+</p>
+
+<p>
+    Let's put this figure in
+    context. Most blocks in Manhattan consist of a short street and a long avenue. The ballpark figure for the  <a
+        href="http://www.nytimes.com/2006/09/17/nyregion/thecity/17fyi.html">average length of a Manhattan avenue</a>
+    is 750 feet, so the nearest Starbucks is a little under two avenues away; or, using the old ballpark figure of 20
+    city streets to a mile (which is 264 feet per block), five streets.
+</p>
+
+<p>
+    Furthermore, analysis done by another Redditor a little while ago (titled <a
+        href="http://iquantny.tumblr.com/post/82964955696/half-of-manhattan-is-within-4-blocks-of-a">"Half of Manhattan is Within
+    4 Blocks of a Starbucks"</a>) bore out the fact the 20% of Manhattan is within 0.1 miles (520 feet) of a Starbucks,
+    while a whopping 50% of it is within 0.2 miles (1040 feet) of it. So not quite two blocks&mdash;at least, not
+    always&mdash;but it's still hella close.
+</p>
+
+<h3>Visualizing the data</h3>
+
+<p>
+    But why stop there? Starbucks isn't the only game in town; in fact, as the Center for an Urban Future reports in
+    its <a href="https://nycfuture.org/research/publications/state-of-the-chains-2015">"State of the Chain 2015"</a>
+    report, Starbucks is only the <i>fourth</i> largest chain in Manhattan, trailing the likes of Dunkin Donuts,
+    Subways, and, um, Metro PCS (wait, seriously?).
+</p>
+
+<p>
+    I ran the numbers on what I felt was a somewhat representative sample of my favorite chains in the State of the
+    Chain 2015's dataset and compiled the results into the <a href="https://d3js.org/">d3.js</a> visualization below.
+    Data is provided in both feet and in the number of streets (which is, unscientifically, <code>feet / 264</code>).
+    The small blue bars demarkate the standard deviation of the data: if you don't know what those are, ignore them,
+    as I will have more to say on that topic in a future post.
+</p>
+
+<p>
+
+</p>
+
+<iframe src="https://www.residentmar.io/visualizations/average-chain-distance-visualization.html" marginwidth="0"
+        marginheight="0" scrolling="no" style="transform:translate(-95px, 0); height:1375px" class="inline_iframe"></iframe>
+
+<p>
+    How do competing chains compare against one another? What chains are particularly good at distributing themselves
+    throughout Manhattan? What chains are bad at it (e.g. why are Apple Stores only where the rich people live)? If
+    Whole Foods is still so hard to find, why do people feel endangered by it? What are the confidence intervals at
+    play here? This is a broad dataset, we've only scratched the surface on what we can do with it, and I definitely
+    plan to revisit this topic in a future continuation. In the meantime you can sleep soundly at night, if you're
+    lucky enough (or foolish enough, or both) to live in Manhattan, knowing that the nearest Starbucks is probably just
+    a few minutes' walk away.
+</p>
+
+<p class="addendum">
+    To play with the code yourself see the corresponding <a href="https://github.com/ResidentMario/chain-incidence">
+    repository</a> on GitHub. You may have also seen this post in the media&mdash;it was republished in <a
+        href="http://web.archive.org/save/http://gothamist.com/2016/02/09/starbucks_ubiquitous.php">Gothamist</a> and
+    elsewhere.
+</p>
+
+		</div>
+		
+&mdash; Aleksey
+
+<div class="bottom-spacer"></div>
+
+
+	</div>
+</body>
+</html>

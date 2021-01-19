@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel= "stylesheet" type= "text/css" href= "https://www.residentmar.io/static/css/app.css">
+	<link rel= "stylesheet" type= "text/css" href= "/static/css/roboto.css">
+	<link rel="icon" type="image/x-icon" href="/static/design_elements/code-writer-black.png"/>
+    <link rel="alternate" type="application/rss+xml" title="Data Hacks Feed" href="https://www.residentmar.io/feed" />
+    
+<link href="/static/css/prism.css" rel="stylesheet" />
+<script src="/static/js/prism.js"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+    <title>
+    Aleksey Bilogur—
+    Blog
+	</title>
+</head>
+
+<body>
+	<div id="header">
+		 Aleksey Bilogur &nbsp;
+		<img src="/static/design_elements/code-writer.svg" alt="Icon." style="height:65px; position:absolute; top:5px"/>
+	</div>
+	<div id="navbar">
+	<div style="float:left; font-size:18px; margin-top:12px;">
+        
+            <a href="/" class="navigation-link">blog</a>
+        
+        &nbsp;&nbsp;
+        
+            <a href="/portfolio.html" class="navigation-link">portfolio</a>
+        
+        &nbsp;&nbsp;
+        
+            <a href="/advocacy.html" class="navigation-link">advocacy</a>
+        
+        &nbsp;&nbsp;
+        <a href="https://github.com/residentmario" class="navigation-link">github</a>&nbsp;&nbsp;
+        <a href="https://twitter.com/residentmario" class="navigation-link">twitter</a>&nbsp;&nbsp;
+        
+            <a href="/about.html" class="navigation-link">about</a>
+        
+        &nbsp;&nbsp;
+    </div>
+	</div>
+	<div id="frame">
+		<div id="content">
+			
+<h2>
+My approach to solving coding challenges
+</h2>
+<!--<span id="postdate"></span>-->
+<span id="postdate">08/14/2018</span>
+
+
+			
+
+<p>
+    Software engineering interviews usually pivot around the asking and answering of certain well-posed algorithmic design problems. These are known as "coding challenges", and they are the centerpiece of the last step in the software engineer job application process&mdash;the feared <a href="https://www.quora.com/How-do-I-prepare-for-a-software-engineering-job-interview">on-site technical interview</a>.
+</p>
+
+<p>
+    I've been doing a lot of coding challenges lately. When writing code, I find it very easy to barge headfirst into a problem I am working on and try to bring it to a working solution all at once. After some moments of frustration, and some pair programming experiences where I got to see others' approaches, I realized that I need a mental workflow for approaching these questions, the contents of which I'm sharing in this blog post.
+</p>
+
+<h3>Step 1: Understand the problem statement</h3>
+
+<p>
+    Before doing anything else you need to read and reread the problem. Make sure you fully understand what it is asking. In particular, make sure that you know the answer to any ambiguities in the phrasing. You would think this wouldn't come up a lot, but it does, especially in online challenges where there's no way to ask for clarification. And needless to say it's really a disaster if you start implementing the wrong algorithm!
+</p>
+
+
+
+
+
+
+
+
+
+<p>
+    I would also start thinking about corner cases immediately. Are the base cases obvious and well-defined?
+
+</p>
+
+
+
+
+
+<p>
+    Only once we understand the problem wording may we start to consider the problem itself.
+</p>
+
+
+
+
+
+<h3>Step 2: Write output unit tests</h3>
+
+<p>
+    Once we understand the desired behavior, we need to formalize the expectation by writing <a href="https://stackoverflow.com/questions/1383/what-is-unit-testing">unit tests</a> for it. These tests will be black box because we are not testing any function intrinsics or helps, only the expected output. Writing  tests ahead of time forces you to think about potential program edge cases right away, which promotes program correctness once you sit down to the actual programming.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Step 3: Design a brute-force solution in psuedocode</h3>
+
+<p>
+    Understanding expected output is often enough to define a <a href="https://en.wikipedia.org/wiki/Brute-force_search">brute-force solution</a>. The brute-force solution doesn't need to be pretty or fast, it just needs to work and pass the tests.
+</p>
+
+<p>
+    Why write the algorithm out in psuedocode first? Why not commit to an implementation in your favorite programming language immediately?
+</p>
+
+<p>
+    Generally speaking you perform two errors when building a program: logic errors, and syntax errors. Logic errors are errors in the way the program operates (for example, forgetting a termination condition). Syntax errors are errors in the way that you using the language you are writing the program in (for example, incorrectly concatenating variables of different types). If you write the program in a true language immediately, you will need to keep both kinds of errors in mind simultaneously.
+</p>
+
+<p>
+    By writing the program in psuedocode first you can focus solely on logical correctness first, and on syntactic correctness later. There's no right or wrong syntax, and hence no implementation details, and hence no need to think about the second class of problems (yet).
+</p>
+
+<p>
+    That being said, if the problem is very easy, you can skip this step and go straight to Step 4. If the problem is hard from the get-go, or if a significant difficulty in the problem is in just coming up with the brute force solution, you may need to perform Step 5, property analysis, first, before you can even implement a brute-force solution.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Step 4: Implement the brute-force algorithm</h3>
+
+<p>
+    With the logic written out, you can focus on mapping it to the implementation.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+    The implementation doesn't need to be pretty. It just needs to work. Make sure it passes your tests!
+</p>
+
+<h3>Step 5: Study the problem properties</h3>
+
+<p>
+
+    With a brute force implementation done, it is now time to perform optimization.
+</p>
+
+<p>
+    There are two types of optimizations. Logical optimizations reduce program runtime and memory overhead by changing the underlying algorithm (for example, <a href="https://en.wikipedia.org/wiki/Memoization">memoization</a>). Syntactic optimizations reduce these things by changing the language features used (for example, <a href="https://stackoverflow.com/questions/1422149/what-is-vectorization">vectorization</a>). The former is usually considered important, and the latter optional.
+</p>
+
+<p>
+    Before we can perform these optimizations however we need to find properties of the problem and structures within the problem that we can take advantage of within our code. I like to first build a list of properties that I see that I think might be helpful.
+
+
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+    Any list will do, as long as it contains the most important properties of the problem. But finding the "right things" is really, really hard; knowing what to look for, and how, is mainly a matter of experience.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Step 6: Implement the optimized solution in pseudocode</h3>
+
+<p>
+    Again, do pseudocode first, program language implementation later, again to separate logical thought from syntactic thought.
+
+
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Step 7: Implement the optimized algorithm</h3>
+
+<p>
+    Now we implement the optimized algorithm, and make sure it still passes the tests.
+</p>
+<!-- Code here, maybe. -->
+<h3>Step 8: Loop through optimizations</h3>
+
+<p>
+    If we are applying multiple non-trivial optimizations, we may significantly reduce our defect rate by applying them one at a time, instead of all at once. In other words, if there are multiple things we can "do" to make our program better, it can be greatly helpful to perform steps 6 and 7 in a loop: implement one optimization in pseudocode and then in code, then the next one, and so on.
+</p>
+
+
+<h3>Step 9: Refactor for quality and implement constant-factor optimizations</h3>
+
+<p>
+    Your first attempt at an algorithm will invariably be a bit messy, and will tend to use features of the language that you are most comfortable with. Once you have successfully implemented something that works, you can improve code quality by refactoring it.
+</p>
+
+<p>
+    This can achieve two ends. One, tidy operations like removing unused variables, renaming unclear fields, and extracting functional components to helper functions improve code readability. Second, refactoring will allow you to deploy language features that you know reasonably well, but which you would hesitate to use in an interview or prototyping context (in case you make a mistake). These more advanced language features can further improve code clarity.
+</p>
+
+<p>
+    Finally, the last thing you can do is introduce constant-factor optimizations. Constant-factor optimizations do not improve the time complexity of the algorithm, but do improve its finer runtime characteristics. Examples include <a href="https://stackoverflow.com/questions/45803829/memory-overhead-of-typed-arrays-vs-strings">replacing typed arrays with lists</a> and <a href="https://stackoverflow.com/questions/1422149/what-is-vectorization">vectorizing math operations</a>. These types of optimizations are hard to get right, will not be easily applicable to every problem, and require a detailed understanding of the programming language you are working with. In most contexts, this is an optional bonus!
+</p>
+
+<h3>Closing comments</h3>
+
+<p>
+    This is an idealized workflow, as the flow of coding challenge changes dramatically based on where it is conducted, how much time you have, and how difficult the problem you are working on is for you. If you don't have access to a programming environment (as in a whiteboarding interview) you obviously won't be writing any tests. If you find the question easy you may not need to write out pseudocode first. If you find the question hard, you may need to think for a long time about the properties of the problem even before you write a brute-force solution.
+</p>
+
+<p>
+    Find this blog post heavy on words and light on code? <a href="https://nbviewer.jupyter.org/github/ResidentMario/data-structures-js/blob/master/notebooks/Longest%20Common%20Substring.ipynb">Check out the Jupyter notebook it's based on</a>, which includes a full worked solution that I've omitted here.
+</p>
+
+
+		</div>
+		
+&mdash; Aleksey
+
+<div class="bottom-spacer"></div>
+
+
+	</div>
+</body>
+</html>

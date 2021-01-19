@@ -1,0 +1,44 @@
+
+    I've spent the last couple of weeks hacking on Geoplot, a Python geospatial data visualization library that tries to be "the Seaborn for geospatial plotting". Geoplot exists because I kept wanting to make simple maps in Python and kept not having a library to do it with; so eventually I wrote it myself. Last week I finally refactored the increasingly messy internals for legibility and readability using a class design pattern I'm a big fan of: mixins.
+ 
+    In this article I want to discuss mixins: what they are, how they work, and when they're useful. Hopefully after reading this brief article you will be ready to experiment with this pattern yourself in your own projects.
+ 
+    However, first we have to take a bit of a detour, and talk about the related concept of multiple inheritance.
+ 
+    Multiple inheritance is an object-oriented feature that is present in many but not all programming languages. Most languages have object, and allow said objects to inherit from other objects. The object doing the inheriting is the subclass; the object being inherited from, the superclass:
+ 
+    The next logical step is allowing a subclass to inherit from multiple superclasses. This is multiple inheritance:
+ 
+    While this seems like a neat and extremely uesful feature, it is actually suprisingly difficult to use in practice. Deep levels of class inheritance nesting can create what is known as the diamond dependency problem. Quoting from Wikipedia:
+ 
+        "Suppose two classes B and C inherit from A, and class D inherits from both B and C. If there is a method in A that B and C have overridden, and D does not override it, then which version of the method does D inherit: that of B, or that of C?"
+     
+    Python solves this problem using a scary-sounding algorithm called C3 linearization, but this is a fragile (not to mention complicated) solution. It is very easy to change or add or rename a method on a class, or to modify an inheritance hierarchy in some way, and in doing so inadvertently change which parent's version of a function or attributed is being called on in your code. If this function doesn't do exactly what the previously inherited function did, the result will be code breakage.
+ 
+    Multiple inheritance is hard. The common advice in the Python programming community is to avoid it.
+ 
+    Instead, write classes that inherit one-at-a-time—that is, practice single inheritance. This is a safe approach, but it has an important drawback: discoverability.
+ 
+    For example, consider the KElbowVisualizer class in Yellowbrick, a machine learning model visualization library I've written about in the past. KElbowVisualizer inherits from ClusteringScoreVisualizer; which inherits from ScoreVisualizer; which inherits from ModelVisualizer; which inherits from Visualizer; which inherits from the BaseEstimator class in Scikit-Learn. That's five levels of inheritance!
+ 
+    Yellowbrick has so much indirection because it has many different visualizer classes, each reliant on a different subset of library features. Each time a new visualizer is introduced that isn't satisfiable with the current chain of abstract classes, a new parent class has to be created and injected into the inheritance chain. Take this design pattern far enough and it becomes non-obvious which parent class defines which methods (and why).
+ 
+    Mixins are an alternative class design pattern that avoids both single-inheritance class fragmentation and multiple-inheritance diamond dependencies.
+ 
+    A mixin is a class that defines and implements a single, well-defined feature. Subclasses that inherit from the mixin inherit this feature—and nothing else.
+ 
+    The following code snippet, taken from the Geoplot codebase, illustrates how this works:
+ 
+    Even though KDEPlot uses multiple inheritance, it has only one true parent class: Plot. Every other class it inherits from is a mixin (by convention, mixins in Python end in "Mixin"). The Plot parent class provisions object initialization, and contains only the (axis configuration) code common across all plots in Geoplot:
+ 
+    Every "optional" feature in geoplot is implemented as a mixin. Each mixin defines a small number of public function (preferably a single one, if possible) which does all of the "feature work" that the mixin is responsible for:
+ 
+   Mixins are a safe form of multiple inheritance. They enforce a new constraint on your classes: that all functionality relating to a specific feature must live in the appropriate mixin. Thus methods thus can't be defined in more than one place, and thus can't fall prey to diamond inheritance problems.
+ 
+    Mixins are more legible than single inheritance classes. Flat "single-level" inheritance (courtesy of multiple inheritance!) and clear division of labor on a feature-to-feature basis makes it obvious which parent class is responsible for which object properties. In fact, mixins make it so obvious which features an object supports that oftentimes you can read it right off of the class signature:
+ 
+    This article is not an injunction against single-inheritance objects. Codebases featuring diverse objects or lots of "special cases" that limit code reuse may not benefit as much from using mixins as a smaller, more functionality-constrains projects might. In these cases hierarchical single-inheritance objects may work best.
+ 
+    But mixins are a great tool to have in your programming toolbox. And there's also nothing stopping you from using both hierarchical inheritance and mixins simultaneously. Some of the best-designed APIs in Python, like Requests and Werkzeug, are implemented using a dash of both.
+    Mixins are definitely a design pattern you should consider the next time you do some library programming!       
+ 
