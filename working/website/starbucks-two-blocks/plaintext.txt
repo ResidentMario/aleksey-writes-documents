@@ -1,0 +1,107 @@
+
+    This one started on Reddit.
+ 
+    Someone on r/NYC complained
+     (naturally) about the poor quality of an overpriced burger they bought at a restaurant chain, and u/seancurry1 took the time to share a life story relevant to
+    the topic:
+ 
+    Leaving aside the usual heckling-of-the-tourists—although I admit, having lived here all of my life, I do
+    enjoy a good heckling—one wonders whether or not this statement really is true. Starbucks baristas always
+    (or almost always) ask for your name when serving your order, but I have long since given up on my real name,
+    going by the pseudonym Al whenever I'm on location. Well, the last two times I've been in a Starbucks I've
+    gotten back "Ale". Not the good kind. Come on guys. Two letters.
+ 
+    It's pretty well established that no one actually really likes Starbucks (except maybe this guy), but we all tolerate it well enough, and
+    you do have to respect their business acumen, because they really do seem to be literally everywhere. But is it
+    really true that every two blocks, no matter which direction, another Starbucks calls? This is a hypothesis worth
+    putting under the microscope.
+ 
+    First and foremost I needed some sort of way of actually getting every instance of a chain in Manhattan. There
+    are two major APIs available for this sort of job that I am aware of, Yelp! and Google Maps (and maybe
+    Foursquare), and Yelp! turned out to be the better of the two. Yelp! lists its businesses in ascending order: so
+    "dunkin-donuts-3" accedes to "dunkin-donuts-4", then "dunkin-donuts-5", and so on down the line of infamy. Using
+    their Python driver and taking the time to check for stores
+    which have closed, it's a simple enough matter to gather a list of every instance of their "biz" (Yelp! URLs are
+    in the form http://www.yelp.com/biz/[...]).
+ 
+    If you're the sort that likes reading code (I know I am), here's the core of it:
+ 
+    I used folium (the Python driver for leaflet.js) to get a sense of the data. Here's the coordinate map for
+    Gregory's Coffee, a locally-grown coffee chain that some of my
+    friends know that I love to hate (their logo is literally their founder's well-coiffed head—tacky) but go
+    to anyway:
+ 
+    No word yet on the Williamsburg location. Playing around with these maps you can even find some weird discrepancies
+    in Yelp's data. The following coordinate map for Dunkin Donuts, for instance, reveals a franchise
+    nominally in "New York" but actually way out north in Rockaway County:
+ 
+    And here's the Starbucks map. Your analysis is only as good as your data, of course, and a large number of comments
+ on the corresponding Reddit post for this thread point out that the paucity of outer borough locations on this
+    map is incorrect, as many
+        locations are actually instead ID'd either by borough or, amazingly, by neighborhood! The Yelp! API
+    documentation, annoyingly, is actually mum on this fact. It's not practical to try to scrape data by borough and
+    by neighborhood, however, but after digging around for a bit in their data it appears that this never happens in
+    Manhattan—only in the outer boroughs. Since we're focusing on Manhattan in this post, net-net this doesn't
+    impact our analysis later on—but the data on locations outside of Manhattan displayed here should be taken
+    with a grain of salt, as it is extremely partial.
+ 
+    If you scroll in and look around for a bit, it becomes immediately obvious that, ok, there are a lot of
+    areas in Manhattan which are absolutely not always in a two-block radius of a pumkin spice latte. But amazingly,
+    there are also a decent number of areas that always are. Try navigating through the Financial District or through
+    Midtown without hitting one location or other, for instance—you won't get far. And Columbus Circle, the
+    precise point of interest in our story? Awash in them.
+ 
+    This still doesn't answer the question on my mind, though: on average, how far away are you from a Starbucks? To
+    figure that out we have to go a little deeper. We start with the following point cloud of 2000 random
+    locations in Manhattan:
+ 
+    This point cloud uses an underlying GeoJSON layer data (hand-drawn using the
+    wonderful geojson.io web-app). I then constructed uniformly random variables
+    within the "Manhattanite" bounding box, and us
+    ed a point-in-polygon algorithm to verify interior
+    points until I got 2000 of them.
+ 
+    By taking a measure of the smallest distance between a uniformally distributed random sample of points in
+    Manhattan and a list of chain locations, and then taking the average of the resulting distances, we get an
+    accurate measure of nearness. It's possible to use an even larger sample, but 2000 points turned out to be more
+    than enough once I threw them at my distance measurement algorithms: you don't really gain much in the way of
+    accuracy using more, and you lose a lot of speed.
+ 
+    And with that done, one data crunch later, we get our answer. If you were randomly dropped anywhere in Manhattan,
+    anywhere at all, the nearest Starbucks would be, on average, a mere 1335 feet away.
+ 
+    Let's put this figure in
+    context. Most blocks in Manhattan consist of a short street and a long avenue. The ballpark figure for the  average length of a Manhattan avenue
+    is 750 feet, so the nearest Starbucks is a little under two avenues away; or, using the old ballpark figure of 20
+    city streets to a mile (which is 264 feet per block), five streets.
+ 
+    Furthermore, analysis done by another Redditor a little while ago (titled "Half of Manhattan is Within
+    4 Blocks of a Starbucks") bore out the fact the 20% of Manhattan is within 0.1 miles (520 feet) of a Starbucks,
+    while a whopping 50% of it is within 0.2 miles (1040 feet) of it. So not quite two blocks—at least, not
+    always—but it's still hella close.
+ 
+    But why stop there? Starbucks isn't the only game in town; in fact, as the Center for an Urban Future reports in
+    its "State of the Chain 2015"
+    report, Starbucks is only the fourth largest chain in Manhattan, trailing the likes of Dunkin Donuts,
+    Subways, and, um, Metro PCS (wait, seriously?).
+ 
+    I ran the numbers on what I felt was a somewhat representative sample of my favorite chains in the State of the
+    Chain 2015's dataset and compiled the results into the d3.js visualization below.
+    Data is provided in both feet and in the number of streets (which is, unscientifically, feet / 264).
+    The small blue bars demarkate the standard deviation of the data: if you don't know what those are, ignore them,
+    as I will have more to say on that topic in a future post.
+ 
+
+ 
+    How do competing chains compare against one another? What chains are particularly good at distributing themselves
+    throughout Manhattan? What chains are bad at it (e.g. why are Apple Stores only where the rich people live)? If
+    Whole Foods is still so hard to find, why do people feel endangered by it? What are the confidence intervals at
+    play here? This is a broad dataset, we've only scratched the surface on what we can do with it, and I definitely
+    plan to revisit this topic in a future continuation. In the meantime you can sleep soundly at night, if you're
+    lucky enough (or foolish enough, or both) to live in Manhattan, knowing that the nearest Starbucks is probably just
+    a few minutes' walk away.
+ 
+    To play with the code yourself see the corresponding 
+    repository on GitHub. You may have also seen this post in the media—it was republished in Gothamist and
+    elsewhere.
+ 

@@ -1,0 +1,16 @@
+
+    I had a great time at today's Tree Count Data
+    Jam, a National Day of Civic Hacking hackathon put on by BetaNYC, the New York City Parks Department,
+    Civic Hall, and a field of well-involved community sponsors (CartoDB, Microsoft, etc.).
+ 
+    Following up on my success with spam.js from yesterday, my team put
+    together another viz using the library, this time with a selector for painting a chloropleth by
+    selection—using either population density or area—for understanding the distribution throughout the
+    boroughs of the subject of the day's hacking, the results (still partial, mind) of the 2015 Street Tree Census.
+ 
+    Despite the limited time we had to work on it, the result is nevertheless beautiful. Our team was me, Nayoung
+    Ahn, Sri Nandula, and Alec Barrett—who handled all of the data munging
+    operations in R.
+ 
+    Note: this map originally displayed additional information on hover. This feature no longer works, unfortunately.
+ 

@@ -1,0 +1,50 @@
+
+    Every Wednesday night in San Francisco is civic hack night at the Code for America HQ, which is an opportunity for group looking for help with their civic data problem to pitch their problem to a sympathetic audience. At one such event I met the founders of Rubbish Revolution, a smart trasher grabber startup. Rubbish Revolution was looked for help analyzing a dataset of trash pickups they had amassed. The results of that analysis are now a blog post on the Rubbish Revolution blog: "130,000 trash pickups in San Francisco".
+ 
+    This is not that blog post, but instead one discussing a chief technical challenge of this project: spatial joins.
+ 
+    Rubbish Revolution had collected over 130,000 individual pieces of trash, and each of those pieces has a GPS coordinate associated with it in the dataset. But GPS is intrinsically inaccurate, and there was nothing connecting the scattered trash points to the surrounding features: the block it was located, and the building it was closest to. To get this data, we would need to map the point coordinates onto the street centerline, and then join those new points onto the building and block nearest. And because I saw a lot of potential applications of these techniques to other neighborhoods and in other contexts, I wanted to do this in the most robust way possible.
+ 
+    The code I wrote to handle this use-case lives in a little Python module named streetmapper. I've had a few conversations about this project with other geospatial-minded folks in my network, and there has been a lot of interest in how it works. In this blog post I will explain just that.
+ 
+    A join in the database world is a unification of two different tables based on a key or column that they have in common. In the GIS world, instead of joining two tables based on exact matches, we join two geometries based on some spatial commonality. We might associate a set of points and a set of polygons by seeing which points are inside of which polygons, for example; or join polygons to the other polygons by checking whether or not they touch. These various joins are known as spatial joins.
+ 
+    The first thing I needed to do was perform a spatial join of buildings in San Francisco onto their corresponding blocks. Both 
+    building footprint and block footprints are publicly available on the city's open data portal, so getting the data was not a problem. Nor was finding a good spatial join algorithm: the sjoin operation in the geopandas library provides a solid, reasonably fast implementations for the most common join types.
+ 
+    The trouble is that these two datasets were collected at different times! Slowly but surely, buildings and blocks change: new streets are added and old buildings are demolished and replaced. So when we perform this join, we run into a lot of cases where buildings seem to span multiple blocks:
+ 
+    Many of these are due to new construction. Some are more difficult to explain. The case on the top right is a cooling tower located on top of the highway on Treasure Island (which, what do you do in this case?). The case on the bottom right occurs due to data inaccuracy. And on the bottom left is a building located underneath a highway overpass.
+ 
+    We can plot all of the buildings that have this problem on a map:
+ 
+    Some buildings also have the opposite problem: they got matched to no blocks whatsoever. Hilariously, this turned out to be due to differences in the city boundaries set by the City of San Francisco, which provided the building footprints dataset, and the United States Census, which provided the block footprints dataset:
+ 
+    In conclusion, mapping buildings onto blocks process works pretty well in most neighborhoods. In some neighborhoods, some manual data correction will be required. You can perform this operation in one line of code using streetmapper:
+ 
+    The next step is to split blocks into blockfaces so that we can assign buildings to those blockfaces later on. It's easy to see what to do when a block is square: just split it into four sides. Blocks can be arbitrarily complex, however. Some aren't even valid polygons because they cross over themselves:
+ 
+    Fixing these is relatively easy: apply a geometric operation known as a buffer to the shape, and those self-intersections will dissolve away. There were also some multipolygons for unpopulated islands in the data that I would throw out completely.
+ 
+    To split the blocks into blockfaces, I applied a line simplification algorithm to the polygon. Mike Bostock has a great blog post explaining how these work. Basically, we remove points from the shape one at a time until we have distorted the shape so much that a threshold of inaccuracy has been reached. I used a threshold of 5%—e.g. I stopped removing points just before the simplified polygon had lost that much shape data. The surviving points are the "most important" points in the polygon, so those were the points I would use as my blockface boundaries.
+ 
+    Most (5251 to be precise) city blocks were square, thus getting split into four blockfaces. Blockface counts from three (#uselessfacts there are 113 triangle blocks in San Francisco) through ten or so were also common. There was a long tail of hypercomplex blocks that were hard to break up, including one outlining every boat dock on the marina that consisted of no less than 387 points even after this reduction operation.
+ 
+    To run this operation yourself using streetmapper:
+ 
+    Now that we know which buildings are located on which blocks and what the blockfaces of those blocks are, the next step is matching the buildings onto the blockfaces. We want to figure out the buildings' frontages—the parts of the sidewalk that the building ajuts.
+ 
+    I solved this problem in the dumbest way possible. I take a blockface and split it into 100 line segments. I then calculate the distance of that line segment from each building on the block. The building that is closest to that line segment "wins". This is not really a great solution technically. The most obvious failure case occurs when buildings are different distances from the curb, in which case an adjacent building will appear to be closer to the sidewalk (and be designated as such), even if it's not.
+ 
+    A better way of solving this join would be to use a line or network voronoi diagram. An implementation of this doesn't exist in Python, that I know of, but is hopefully coming soon to a spaghetti geometric manipulation library near you.
+ 
+    For now we'll just use what we got. The streetmapper one-liner is:
+ 
+    At this point we have a dataset of blocks split into blockfaces, which are split further into building frontages. The last step in this algorithmic process is to assign the trash coordinates to the frontages—and hence the buildings that may be responsible for them. This requires snapping points to lines, but that's easy to do: the documentation for the spaghetti geometric manipulation library includes a demo showing you how to do it in a handful of lines of code.
+ 
+    The streetmapper wrapper is:
+ 
+    Congratulations! You now have a dataset of geospatial point features joined onto the buildings nearest. Try to use your newfound powers for good.
+ 
+    To see all the code for yourself in more detail, check out the GitHub repo for the analysis and/or the GitHub repo for the streetmapper codebase.
+ 

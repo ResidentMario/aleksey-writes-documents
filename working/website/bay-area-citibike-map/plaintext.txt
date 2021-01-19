@@ -1,0 +1,11 @@
+
+    Back in 2016 I mapped bike trips taken using New York City's bike-share system, Citi Bike. I traded Brooklyn and Manhattan for Oakland and San Francisco in the meantime, so thought it'd be fitting to recreate that map in my updated setting.
+ 
+    Here's one for San Francisco:
+ 
+    And here's one for the East Bay:
+ 
+    One major difference: New York City has many bike-able bridges, but the Bay Area has none. There is a tunnel for trains and a bridge for cars but that's it. So whilst Brooklyn and Manhattan share their bikes, San Francisco and the East Bay operate entirely independently.
+ 
+    And a caveat: this map uses idealized routes generated using the Open Route Service (which in turn uses OpenStreetMap data). These routes may differ from the actual, perhaps more circuitous routes bikers take.
+ 

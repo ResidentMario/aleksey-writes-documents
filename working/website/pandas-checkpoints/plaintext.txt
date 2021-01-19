@@ -1,0 +1,74 @@
+
+    Suppose that we have a list of phone numbers which we believe corresponds to restaurants in New York City (e.g.
+    from the city's 
+    restaurant inspection data), and we would like to match those with currently opened locations. That should be
+    pretty easy in theory: just download the data into a pandas DataFrame, clean it up a bit, extract the numbers, and push them through the Yelp! Phone Search API.
+ 
+    Or, put another way: we're throwing 27,000 phone numbers of indeterminate quality at a (slow, networked) external
+    API whose corner cases we don't immediately understand. Huh? Well, suppose that, in our naivety, our first attempt
+    looks like this:
+ 
+    Except it doesn't work. Just 7 seconds in, it throws an error:
+ 
+    Ok, fair enough, it's possible for client.phone_search(num).businesses to be an
+    empty list, in cases when Yelp! can't find anything for us. We modify our function to account for this:
+ 
+    And run it again...oops.
+ 
+   Some of the numbers in the list are nulls, which once again does our algorithm in. Another rewrite:
+ 
+    You run the code again. We wait a minute or two, and nothing seems to break, so you drift off to an
+    interesting-looking pandas question on Stack Overflow. But after you switch back:
+ 
+    Turns out that if the Yelp! API can find a place, but can't find its location, the Python driver just sets business.location.coordinate to None. Another
+    rewrite:
+ 
+    Is that enough? No.
+ 
+    No coordinates and no address means the entire business.location object
+    is None. There goes ten minutes of your life (and 1000 cycles of your API rate limit). Fix it and try again:
+ 
+    Done yet? LOL no.
+ 
+    The heck? Nine underscores? Who does that?!?
+ 
+    People, that's who!
+ 
+    At this point, if you're anything like me, you're super frustrated. You've been trying to run this algorithm for
+    over an hour, but have gotten stopped along the way every single time. Your unfunc has morphed from a simple
+    three-liner to a big 'ol amorphous try-catch block.
+ 
+    It's the end of the day, so you turn off your computer's power saver settings, hit Run once more, turn off the
+    moniter, and leave.
+ 
+    The next morning you come back, and here's what you discover:
+ 
+    23720/27064; your script with 90% done, only to explode and lose everything 'cause someone fat-fingered a "." into
+    their keypad, somehow, resulting in the wrong number of digits.
+ 
+    To think that all of this could be avoided, were you to just have come up with the completely map function ahead
+    of time:
+ 
+    Uhhhhh. Right.
+ 
+    This is a moderately embellished version of a true story. It's true that no one would just run a query this big
+    and slow in one go; you'd probably wrap the whole thing in a try-catch block and send it to a list or something.
+    Or do what I did and go one uglier, split the job list into batches
+    and run those one at a time. However neither of these ideal, because it inflicts a lot of overhead on the
+    programmer—and pain and misery on anyone else who has to read the resulting slosh.
+ 
+    So I wrote checkpoints,
+    a small module meant to handle that overhead for you.
+ 
+    checkpoints imports new DataFrame.safe_apply and
+    Series.safe_map methods, stop-and-start versions of their base operations that
+    cache partial results in between runtimes in case an exception is thrown. That means that the next time these
+    functions are called, the operation will pick up back where it failed,
+    instead of all the way back at the beginning, as we had to do above.
+ 
+    It's a a very simple idea (albeit one that's hard to express idiomatically): save your progress as you go
+    along. Try to pick up where you left off after every failure. Never write another
+    for loop in anger again!
+ 
+    Head over to the the GitHub repository to learn more.
+ 

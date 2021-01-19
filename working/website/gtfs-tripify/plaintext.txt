@@ -1,0 +1,228 @@
+
+    A few years ago there was a massive push, spearheaded by Google, to unify the systems that various public transit
+    systems used for external reporting. For many years (decades?) public mass transit operators in the United States
+    had been reporting data on the trains and buses they operated, but every system had its own configuration, leading
+    to a painful morass of incompatibility. Google studied the problem and invented a specification eventually known as
+    the "General Transit Feed", or GTFS, as a solution. Years of robust technical evangelism by both Googlers and a
+    loose consortium of civic activists eventually toppled bureaucracy, and today GTFS is a global standard. The spec
+    is a rare victory for standardization in government data.
+ 
+    New York City's transit authority, the MTA, publishes GTFS data. It also publishes what are called GTFS-Realtime
+    feeds. GTFS-Realtime is the future of mass transit. GTFS-Realtime provides a snapshot of where every train (or bus)
+    in the system is located and where it's planning to go next. Hence GTFS-Realtime is a big step up from GTFS because
+    it provides ground truth about how the system is operating.
+ 
+    If you live in New York City and take the train to work you probably have some sort of train and/or bus application
+    on your phone. You're also probably familiar with the widely popular countdown clocks that are now installed in
+    almost every station. GTFS-Realtime exposes this same data to consumer applications!
+ 
+    The New York City Transit System is enormous, so the GTFS-Realtime rollout has been incremental. The first lines to
+    receive feeds were the 1 through the 6 and the S. Further progress was slow until early 2017, when the
+    MTA mass-installed WiFi in every underground station in New York City. This paved the way for a clever hack:
+    
+        wireless transmitters were installed in most trains, which, whenever the train pulled into a stop, would
+    ping control towers to indicate where the train was. By bootstrapping these transmitters across the entire fleet,
+    between December 2016 and today the city was able to launch GTFS-Realtime coverage for every line in the
+    entire subway system. Huzzah!
+ 
+    In this post I will first describe the salient points of the GTFS-Realtime standard and how it is
+    utilized by the MTA. Then, I'll discuss the challenges of parsing real-world GTFS-Realtime snapshot data into a
+    format that's less useful for commercial applications, but more useful for research and metrics purposes:
+    historical train arrival tables. Finally, I'll present a brand-new Python package,
+    gtfs_tripify, for constructing such data.
+ 
+    The GTFS-Realtime specification defines a set of fields of expected values using a format known as
+    Protobuf. Protobuf is a Google-developed
+    interface description language for data
+    serialization. You start by creating a specification, known as a Proto file. You then feed this specification to
+    Protobuf, which turns around and churns out an API working with such data.
+ 
+    GTFS-Realtime feed is defined in this way by a publicly available
+    gtfs-realtime.proto file. You
+    could use this file to generate your own GTFS-Realtime API. But Google publicly distributes ready-made APIs in a
+    variety of programming languages, so it's easiest to just grab one of those
+    from their GitHub.
+ 
+    There's an interesting caveat here. The MTA doesn't use the official GTFS-Realtime proto file. They use a version
+    of the specification that they've extended with a few additional data fields. You can get their version
+    here. I will keep going with the
+    "vanilla" GTFS-Realtime API, which can still be used to read MTA data but will "miss out" on these bonus fields,
+    because the additional information was relatively unimportant and added unnecessary complexity.
+ 
+    Pouring data into a Python object using the Protobuf API is easy, albeit rather funky. Here's a code bit for
+    reading a single timestamped feed into memory:
+ 
+    The resulting feed contains a header with identifying information (most
+    importantly, the timestamp), and a payload list of "messages". Each "message" represents a chunk of data about the
+    state of the system. In the MTA feeds, there are three kinds of messages. The first type is the vehicle update,
+    which provides information about where a vehicle currently is on the track:
+ 
+    There are three possible current_status codes. A train which is
+    "INCOMING_AT" is almost at a station (and should be fully stopped at it within
+    the next minute), while a train that is "EN_ROUTE_TO" is going somewhere, but
+    still between stops. The last possible value, "STOPPED_AT", is pretty
+    self-explanatory. The timestamp is the UNIX timestamp at which the feed was valid.
+ 
+    Notice that the stop_id is not the official name of the station, but an
+    identifying ID. The official names and locations of the stops can be read out of
+    stops.txt in the corresponding GTFS feed. The interesting thing about
+    stop_id is that it includes the heading of the train in the station name: "N" for
+    northbound, "S" for southbound. While most trains in New York City are dominantly north-south, a few run mainly
+    east-west. In those cases the MTA does the logical thing and...converts west to north, and east to south. Oh right,
+    that's actually terrible.
+ 
+    The second type of message is the trip update:
+ 
+    A pretty easy read. The trip bit is basically a foreign key that lets you link
+    this update up with the co-requisite vehicle update. The first stop in the sequence will contain only an
+    departure estimate if the train is currently
+    STOPPED_AT there, while the last stop in the sequence will contain only an
+    arrival.
+ 
+    The third and last type is an alert. An alert message provides (textual) information about a delay for some
+    selection of affected trips. The text itself is usually of dubious usefulness.
+ 
+    Alerts are important for consumer applications, but since I'm interested in historical data I didn't spend much
+    time worrying about them.
+ 
+    Trip updates and vehicle updates make up the core "state" in the feed. Vehicle updates usually follow their
+    associated trip updates in tight one-two order: so you expect to see Trip A Trip Update, Trip A Vehicle update,
+    Trip B Trip Update, Trip B Vehicle Update, and so on. Alerts would go at the very end of the feed, after all trips
+    and vehicles have been exhausted.
+ 
+    Trips that are scheduled but which have not yet started are the exception. The MTA prepends the GTFS-Realtime feed
+    with trip updates for trips that have not yet started, but which are scheduled to occur. This is done because if
+    you are located at a station at or very near the beginning of a line, the next train to arrive at your station has
+    very likely not even started moving yet.
+ 
+    Trips that have ended, meanwhile, simply disappear from the feed.
+ What are the challenges of this data format? Lots. 
+    Each vehicle run in the system is assigned a trip_id, so in theory we should be
+    able to assemble a list of relevant messages by parsing contiguous endpoint result. However, this proves to be
+    more challenging than you would expect. The GTFS-Realtime format provides guarantees about the uniqueness of the
+    trip_id at the time of the snapshot (the information would be pretty useless
+    indeed if two different trains shared the same identifier!), but it provides no such guarantee across time.
+ 
+    From a narrative perspective, this has some pretty nasty consequences. What we think of as train trips (and what I
+    purposefully call a train run here) may drop old IDs and acquire new ones at any time in their journey.
+    Nor are the IDs fully unique. After a trip ends, that trip's ID is released back into a common pool, immediately
+    available for assignment to any newly scheduled trips.
+ 
+    Feeds are occasionally returned in a corrupted state. This will happen
+    anywhere on the Internet, but seems to be especially common with the MTA feed. The speculation online is that it's
+    because there's a file on a server somewhere that get read from (when a request comes in) and written to (when an
+    update comes in) simultaneously.
+ 
+    Sometimes the MTA serves an incomplete feed that, albeit not corrupted, also doesn't actually include every trip
+    being made. This occurs due to failures further down the wire. Unsurprisingly, it happens more often to the newer
+    feeds. Sometimes the amount of trains that drop out is huge. In one twelve-hour period, for example, I saw fewer
+    than a hundred stops on the J and Z, compared to thousands on all the other feeds. Garbage in, garbage out.
+ 
+    Sometimes the endpoint stops working completely. This has two flavors. In the first flavor, connections to the
+    endpoint fail or time out. In the second flavor, the endpoint appears to continue to returns feeds...but the feed
+    it returns is the same as the last good feed! It can take the MTA hours to days to detect and fix this when it
+    happens.
+ 
+    There are data integrity issues with the messages themselves. I've found that the MTA occasionally returns
+    vehicle updates without an associated trip update. I've also seen cases where the MTA returns trip updates or
+    vehicle updates with an empty string ("") for the
+    trip_id. Throw these record out!
+ 
+    Recall that in the trip update message, every stop besides the first and last will have an arrival time and a
+    departure time if that stop is to be stopped at, and solely a departure time if that stop is to be skipped. The
+    last stop will only have an arrival time. The first stop may have both, or only a departure time, depending on the
+    state of the vehicle at write time. Sometimes though a message will come through with intermediate stops missing
+    arrival or departure fields, or an end-stop with a departure time (to Hogwarts maybe), or a first stop with
+    only an arrival time.
+ 
+    It would have been very helpful to have this all written down ahead of time. Well, now it is.
+ 
+    The complexity of the realtime feed, the rather overwhelming list of things that could go wrong, and lack of prior
+    knowledge on my part precluded refactoring the data into a historical record (what I call a "logbook") right away.
+    The module I wrote, called gtfs-tripifiy, instead approaches the problem in three
+    steps. In the first, it transforms the data from its rather inconsistent native state into a Python
+    dict. In the second, these feeds are transformed into what I call action logs:
+    packets of tables recording the essential facts about each bit of information in the raw feed. Only in the last
+    step does the data get clobbered into something historical.
+ 
+    To understand what the challenge is, imagine your favorite GTFS-Realtime stream as a matrix. On the x axis
+    is time; on the y, the list of unique trip ids. Each entry is the information on that trip contained in the
+    corresponding snapshot.
+ 
+    Because the MTA reuses the trip_id there might be another 2 going along with the
+    same ID from 2:06 PM to 2:31 PM, and another from 5:45 PM to 6:37 PM, and so on. In other words, there are three
+    contiguous "strides" of entries with the given ID. These are obviously three separate trips, so our first task is
+    to divide them apart (and name them by computing a unique_trip_id). OK done.
+ 
+    Once we have snapshots collated, the information contained in the snapshots are easily comprehensible as simple
+    word problems. For example:
+ 
+        Suppose that at time T there is an uptown 2 train stopped at station A. The train is next planning to go to
+        stations B, C, and D.
+     
+        At time T+1, that train is now stopped at station C. The train is next planning to go to station D.
+     
+        What do we know about the route the train took?
+     
+    Ready? Here's the solution.
+ 
+        At some time between the end of the Big Bang and time T the uptown 2 train stopped at station A. At some time
+        between times T and T+1, the train either stopped at or skipped station B. It then stopped at station C.
+     
+    Turning a stream of GTFS-Realtime snapshots into a train arrival history boils down to solving word problems like
+    this one over and over and over again (but with a computer processor).
+ 
+    Notice that we don't know for sure whether or not the train actually stopped at station B. We can infer from
+    the fact that it was scheduled to do so that it did, but that's it. This is a major limitation of building
+    history on the back of snapshot data: it's often impossible to know whether or not a stop actually occurred.
+ 
+    Here's a harder word problem:
+ 
+        Suppose that at time T there is an uptown 2 train en route to station A. The train is planning to go to
+        stations B, C, and D next.
+     
+        At time T+1, the train is now stopped at station A. It is planning to go to stations E, F, G, B, C, D next.
+     
+        At time T+2 the train is now stopped at station B. It is planning to go to stations C and D next.
+     
+    And the solution:
+ 
+        Sometime between times T and T+1 the train stopped at station A. Sometime between times T+1 and T+2 the train
+        stopped or skipped stations E, F, and G, and then stopped at station B.
+     
+    Because the train moved, we can't naively determine whether or not the intervening stops at E, F, or G actually
+    occurred. Those stops could have disappeared because they were dropped from the trip, or they could have
+    disappeared because the train already made those stops. In the end we must contend with a limitation in the data:
+    these are two very different outcomes, but they look the same to us.
+ 
+    Finally, recall from our earlier discussion on the data format that in the GTFS-Realtime feed, trips does not
+    correspond one-to-one with end-to-end train runs. A single end-to-end service run may be "broken up" over time into
+    several trips, each containing information about one leg of the overall run. I found that, in practice, the MTA
+    only reports around half of train service run as end-to-end trips—the rest are reported in two (or more!)
+    pieces.
+ 
+    Once we have handled reading, aligning, and "solving" the streams, there are only a few less interesting problems
+    to solve. I had to "cap off" stops for trips that have ended, provision
+    EN_ROUTE_TO codes for trips that were still en route at the time the feed ended
+    (while the MTA is a 24/7 system, our data is not boundless). And I had to write a couple of utility functions for
+    cleaning out incomplete records (the data on trips that appear in the first or last feed we read into a logbook are
+    unlikely to be complete).
+ 
+    I did all this work so that you don't have to. And because I was really stubborn. OK maybe more of the latter.
+ 
+    The end result is the
+    gtfs-tripify
+     Python module. gtfs-tripify can be used to turn a list of GTFS-Realtime
+    messages into a history of train arrivals and departures. Here's a minimal example of it in action:
+ 
+    The output is a dictionary of tables. The dictionary, what I call a "logbook", is keyed by a unique trip ID. The
+    whole assemblage looks something like this:
+ 
+    Entries are tables describing individual trips. I call them "logs". An example:
+ 
+    To get started using the module, read the
+    Quickstart section of the documentation.
+ 
+    I'm currently working on a consumer web-app, which I'm calling the Subway Explorer, to surface this data in an
+    end-user friendly manner. I'll have more to say on this subject soon!
+ 

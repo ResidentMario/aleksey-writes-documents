@@ -1,0 +1,37 @@
+I briefly spoke of my involvement with the Wikipedia Signpost earlier in
+        my blog post essay on the negotiation between Openness and Quality in the
+        Wikimedian movement. My involvement with the Signpost has dampened somewhat lately: I've been busy
+        with other projects and haven't had as much time as I did in the past to write articles. I still participate
+        in the editorial board and still read every issue, of course, but more of my work is in the secondary
+        technical elements of the newspaper. You can see the list of every article I've contributed here.
+     
+       The Signpost, like the English Wikipedia that hosts it, is an organic entity that has come about as a
+        result of over a decade of steady innovation. By the time I became active again there in early 2015 its
+        internal organization had descended into an unfortunate maelstrom of half-active pages, unused template code,
+        and decade-old discussions still nested into hidden talk pages that hadn't been visited by actual human in
+        years. I took it upon myself to refresh the project's technical organization, a lengthy singular effort that
+        took months of slow progress to complete. I created
+        content guidelines, fixed the layout
+        (with guidelines!),
+        reworked the default templates we use for creating articles, constructed a new submission
+        queue, wrote coordination
+        guidelines, wrote a technology report republication
+        script, wrote a featured content publication
+        script (saving us at least an hour of work every week), wrote a Blog Importer webtool on Wikimedia Labs (saving us at least 20 minutes
+        every time we republish something), and introduced interactive polls and indexing into our
+        stories. All a labor of love, usually during school hours no less...
+     
+        Continuing along with that theme, this week I put together a Jupyter
+        notebook analyzing page view information for Signpost stories using the new (incredibly long overdue)
+        pageview API. We on the
+        Signpost board have for ages now wanted to run some analysis on our stories to see what it is that
+        readers like the most and the least so that we can better target our publication efforts, and now I've
+        finally gone and done it. The key takeaways are:
+     
+        I presented a lightning talk on this topic at yesterday's 
+        NYC Wikipedia Day 2016 celebratory conference: the video is below. You can see the
+        data for yourself on GitHub.
+     
+        Addendum: I extended this analysis a bit further by looking at spikes in Signpost viewership due to
+        links from popular websites. You can read all about it here.
+     

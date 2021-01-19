@@ -1,0 +1,18 @@
+
+    Someone in the /r/dataisbeautiful community posted an
+    absolutely beautiful and very popular visualization of a map of London based on property sales:
+ 
+    This got me thinking—I've been doing a lot of work with New York City real
+    estate data lately, and I really love choropleths; done right they're just such a visually stunning way of
+    communicating geographic information. Maybe I could use this data to build something similar?
+ 
+    And so I have. The geospatial service at my own home institution, CUNY Baruch, had laced together a very similar
+    dataset out of NYC Geocoded Real
+    Estate Sales going back to 2003. I translated the UK English housing types to their informative approximate
+    American equivalents and got cracking.
+    The geography I used is the highest-resolution geographic breakdown possible (New York City's 2010 census tracts).
+    The raw visualizations were prepared using the newly released and very highly recommendable spam.js library (it took hours to
+    get the data into shape and five minutes to visualize it—wow) and composed using Inkscape.
+ 
+    A panel display of four choropleths makes for a poster-quality visualization that you can hang at home! Take a look:
+ 

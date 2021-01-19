@@ -1,0 +1,57 @@
+
+    Software engineering interviews usually pivot around the asking and answering of certain well-posed algorithmic design problems. These are known as "coding challenges", and they are the centerpiece of the last step in the software engineer job application process—the feared on-site technical interview.
+ 
+    I've been doing a lot of coding challenges lately. When writing code, I find it very easy to barge headfirst into a problem I am working on and try to bring it to a working solution all at once. After some moments of frustration, and some pair programming experiences where I got to see others' approaches, I realized that I need a mental workflow for approaching these questions, the contents of which I'm sharing in this blog post.
+ 
+    Before doing anything else you need to read and reread the problem. Make sure you fully understand what it is asking. In particular, make sure that you know the answer to any ambiguities in the phrasing. You would think this wouldn't come up a lot, but it does, especially in online challenges where there's no way to ask for clarification. And needless to say it's really a disaster if you start implementing the wrong algorithm!
+ 
+    I would also start thinking about corner cases immediately. Are the base cases obvious and well-defined?
+
+ 
+    Only once we understand the problem wording may we start to consider the problem itself.
+ 
+    Once we understand the desired behavior, we need to formalize the expectation by writing unit tests for it. These tests will be black box because we are not testing any function intrinsics or helps, only the expected output. Writing  tests ahead of time forces you to think about potential program edge cases right away, which promotes program correctness once you sit down to the actual programming.
+ 
+    Understanding expected output is often enough to define a brute-force solution. The brute-force solution doesn't need to be pretty or fast, it just needs to work and pass the tests.
+ 
+    Why write the algorithm out in psuedocode first? Why not commit to an implementation in your favorite programming language immediately?
+ 
+    Generally speaking you perform two errors when building a program: logic errors, and syntax errors. Logic errors are errors in the way the program operates (for example, forgetting a termination condition). Syntax errors are errors in the way that you using the language you are writing the program in (for example, incorrectly concatenating variables of different types). If you write the program in a true language immediately, you will need to keep both kinds of errors in mind simultaneously.
+ 
+    By writing the program in psuedocode first you can focus solely on logical correctness first, and on syntactic correctness later. There's no right or wrong syntax, and hence no implementation details, and hence no need to think about the second class of problems (yet).
+ 
+    That being said, if the problem is very easy, you can skip this step and go straight to Step 4. If the problem is hard from the get-go, or if a significant difficulty in the problem is in just coming up with the brute force solution, you may need to perform Step 5, property analysis, first, before you can even implement a brute-force solution.
+ 
+    With the logic written out, you can focus on mapping it to the implementation.
+ 
+    The implementation doesn't need to be pretty. It just needs to work. Make sure it passes your tests!
+ 
+
+    With a brute force implementation done, it is now time to perform optimization.
+ 
+    There are two types of optimizations. Logical optimizations reduce program runtime and memory overhead by changing the underlying algorithm (for example, memoization). Syntactic optimizations reduce these things by changing the language features used (for example, vectorization). The former is usually considered important, and the latter optional.
+ 
+    Before we can perform these optimizations however we need to find properties of the problem and structures within the problem that we can take advantage of within our code. I like to first build a list of properties that I see that I think might be helpful.
+
+
+ 
+    Any list will do, as long as it contains the most important properties of the problem. But finding the "right things" is really, really hard; knowing what to look for, and how, is mainly a matter of experience.
+ 
+    Again, do pseudocode first, program language implementation later, again to separate logical thought from syntactic thought.
+
+
+ 
+    Now we implement the optimized algorithm, and make sure it still passes the tests.
+ 
+    If we are applying multiple non-trivial optimizations, we may significantly reduce our defect rate by applying them one at a time, instead of all at once. In other words, if there are multiple things we can "do" to make our program better, it can be greatly helpful to perform steps 6 and 7 in a loop: implement one optimization in pseudocode and then in code, then the next one, and so on.
+ 
+    Your first attempt at an algorithm will invariably be a bit messy, and will tend to use features of the language that you are most comfortable with. Once you have successfully implemented something that works, you can improve code quality by refactoring it.
+ 
+    This can achieve two ends. One, tidy operations like removing unused variables, renaming unclear fields, and extracting functional components to helper functions improve code readability. Second, refactoring will allow you to deploy language features that you know reasonably well, but which you would hesitate to use in an interview or prototyping context (in case you make a mistake). These more advanced language features can further improve code clarity.
+ 
+    Finally, the last thing you can do is introduce constant-factor optimizations. Constant-factor optimizations do not improve the time complexity of the algorithm, but do improve its finer runtime characteristics. Examples include replacing typed arrays with lists and vectorizing math operations. These types of optimizations are hard to get right, will not be easily applicable to every problem, and require a detailed understanding of the programming language you are working with. In most contexts, this is an optional bonus!
+ 
+    This is an idealized workflow, as the flow of coding challenge changes dramatically based on where it is conducted, how much time you have, and how difficult the problem you are working on is for you. If you don't have access to a programming environment (as in a whiteboarding interview) you obviously won't be writing any tests. If you find the question easy you may not need to write out pseudocode first. If you find the question hard, you may need to think for a long time about the properties of the problem even before you write a brute-force solution.
+ 
+    Find this blog post heavy on words and light on code? Check out the Jupyter notebook it's based on, which includes a full worked solution that I've omitted here.
+ 

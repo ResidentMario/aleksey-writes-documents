@@ -1,0 +1,84 @@
+
+    Active editors on Wikipedia nominally organize themselves using WikiProjects, gathering-places for users
+    with similar editing interests and experiences which serve to help bind together the specific
+    sub-populations in the Wikipedian editing community. The effectiveness of these WikiProjects, however, is highly
+    variable. Some, like WikiProject
+    Military history or WikiProject
+    Video games are highly active and well-organized discussion-board-cum-communities. Some, like my home
+    projects WikiProject Volcanoes and WikiProject Hawaii, are moderately
+    active, but can seem lifeless at times. And some, like WikiProject Nudity (!), are graveyards.
+ 
+    At their best, WikiProjects help keep Wikipedians addicted: they provide friendly gathering spaces in which
+    any of a number of users interested in a topic can discuss and coordinate their effects, creating a healthy
+    communal atmosphere and a reason to stick with the project.
+ 
+    For this project I set out to try to understand the way that WikiProjects interact with one another. Some of my
+    questions were: how many WikiProjects are there? How big are they? And how do they link to one another?
+ 
+    Dealing with the haphazard way in which WikiProjects organize their data turned out to be vaguely Herculean, and
+    over the course of working through this data I had to write in logic for more cases than I ever imagined―an
+    object lesson on how difficult it can be to clean an unpurposed dataset. My "in" was the 1.0 assessment scale ratings,
+    which charts data for all
+    WikiProjects. A lot of grease and a ridiculous amount of API and page requests later, I rolled up a list
+    of (almost?) every WikiProject and their sizes.
+ 
+    WikiProjects keep track of the articles that they are responsible for with "tag templates", placed on article talk
+    pages, which provide some quality and importance metrics about the article in question. I first ranked the
+    WikiProjects and plotted them according to their size—that is, the number of articles that they have tagged
+    in this manner:
+ 
+    WikiProject sizes are exponential distributed: there are a few very, very large WikiProjects which dominate
+    everyone else. Exponential curves like this one are far and away the norm amongst measures of online
+    communities: so much so that there is a colloquial term for it, called Zipf's law, in the field of network analysis.
+ 
+    This graph on its own is not very informative, however. We can get a better sense of what's going on by looking
+    at a compressed view known as the log-log plot:
+ 
+    In red is the trend line that we would expect the WikiProjects to follow if they have a so-called Zipf-like
+    distribution. Instead many large WikiProjects are larger-than-expected and many small ones are
+    smaller-than-expected.
+ 
+    I think that this data hints at the unbalanced way in which Wikipedians organize their article tagging
+    campaigns. To see what I mean, here are the 25 largest WikiProjects and their sizes:
+ 
+    Just from a cursory examination of this list you can already get a sense of the biases at play on Wikipedia. Put
+    yourself in the midset of your typical Wikipedian: according to a
+    2011 Editor Survey you are overwhelmingly white,
+    English-speaking (at least on the English Wikipedia), male, and kind of a nerd (don't knock it 'til you try it!).
+    What types of article are you more likely to be interested in: one on your local highway in Alberta or one on a
+    village in Africa?
+ 
+    And so it is that an entire continent (Africa) gets less than a fourth of coverage that the United States does,
+    and only two thirds that of Australia, a country with on the order of a fiftieth of the population.
+ 
+    This list also demonstrates some of the aforementioned quirks of the article tagging system. As of writing,
+    WikiProject Lepidoptera, an order of insects, has 98,042
+    tagged
+    articles, seemingly the work of a bot tagging campaign early in the project's history. This is enough to make it
+    the thirteenth largest WikiProject on the English Wikipedia—yet its parent project, WikiProject Insects,
+    has just 55,644 articles.
+ 
+    Or look at WikiProject Military history, with 196,951 tagged articles: aren't these all a strict subset of
+    WikiProject History, which has merely 36,324 of them?
+ 
+    Categorization was one of the most important meta-tasks in the early history of Wikipedia: Wikipedians then as
+    now were very much interested in the how much and of what of their editing areas. Today the vast majority of
+    Wikipedia articles are categorized according to WikiProject, most according to multiple ones: Shield volcano, for instance, is associated
+    with WikiProjects in Volcanoes and Geology, while Barrack Obama has something like a dozen of them.
+    I was interested in gauging the relative levels of overlap in content coverage for various WikiProjects. How
+    often WikiProject Geology editors interact with WikiProject Mountains ones? How about WikiProject Alaska and
+    WikiProject Glaciers?
+ 
+    The following charts, generated by sampling tagged articles and checking
+    their talk pages for interactions with other projects, provide a snapshot of what WikiProjects interact with one
+    another the most. WikiProjects are measured by "correlation": that is, how often, on a scale of 0 to 1, that an
+    article tagged by the project in question also happens to be tagged by this other one.
+ 
+    A gallery of some of my favorites follows.
+ 
+    Getting an unbiased sample of articles tagged a certain way proved to be challenging, so an important caveat
+    needs to be made: the article samples used to calculate correlation for this project are biased towards
+    high-importance, high-quality articles.
+ 
+    That's all for now, folks!
+ 

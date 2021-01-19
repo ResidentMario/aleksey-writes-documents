@@ -1,0 +1,144 @@
+
+    One of the most compelling trends in technology today is the open data and open governance
+    movement. It's not without reason that no less than Tim Berners-Lee himself, the creator of the worldwide web
+    and one of the most preeminent scholars of the Internet, is doing his latest work in getting more government
+    data on the web:  
+    in an interview with The New York Times a few years ago he spoke to how even records as mundane as
+    traffic statistics or weather data could drive tinkerers to "make government run better".
+ 
+    New York City has been at the forefront of this movement: mayor Bloomberg (you know, the guy that founded
+    the largest multinational information broker in the world) formalized
+    a citywide analytics team as the Mayor's Office
+        for Data Analytics in 2013, and the effort has continued under Mayor De Blasio, with the city cementing
+    its first Open Data Plan in July 2015. The
+    resultant NYC Open Data Portal is populated with over 1300
+    well-maintained datasets.
+ 
+    One of the most hotly requested of these is the motor vehicle
+    collision dataset, a record of all motor vehicle collisions recorded by the NYPD going back to January 2012.
+    This data was so hotly desired (by everyone from journalists to computer geeks) that prior to release an
+    entire scaper project existed for recompiling and enriching
+    incident reports which had previously been locked into
+    PDFs (where data goes to die) or unavailable except by legal
+    request.
+ 
+    For this project I looked at how this crash data can be used to reduce traffic fatalaties in New York City. The
+    challenge: use data to find ways of helping to reduce the number of fatal crashes in New York City. Massive
+    credit goes here to classmate, teammate, and fellow math nerd Anthony Campanello, who did the wet-work of
+    actually generating the visualization used for this project.
+ 
+    The Mean Streets Project recorded a total of 242 fatal
+    traffic crashes in 2015, a historic low for the city in a figure that has been in slow decline as the years go
+    by. Minimizing this figure, under the auspices of the Vision Zero campaign, has been one of the
+    key aims of the De Blasio administration; this included initiatives like lowering the
+    Manhattan speed limit to 25 MPH (from 30 MPH), and the initiative overall is seen as having been modestly
+    successful in its aims.
+ 
+    Every time the NYPD is called to the site of a traffic accident, the responding officer fills out and files a
+    MV-104AN report. This is a chunky form (which you can examine yourself) with thirty mostly
+    numerical values to fill in, ranging from pedestrian action at time of incident and apparent contributing factors
+    to the physical condition of the victim(s). This information has been compressed, for the purposes of
+    anonymization and analysis, into date, time, coordinates, streets, vehicle types, and contributing factors.
+ 
+    There are over 750,000 data points in the dataset (769054 in this analysis), representing crash reporting
+    going all the way back to January 2012. Not every accident results in a report: the NYPD are called to the scene
+    of an accident usually only specifically when it is useful, for insurance purposes, for there to exist a record
+    of the accident, and so there is likely some number of unreported self-induced accidents—the NYPD form
+    calls these "collisions with fixed objects"—which are not represented in the dataset.
+ 
+    Officers file geographic information in terms of the street or intersection at which the accident occurred,
+    so it's unclear how the coordinates in the dataset were geocoded. Date, time, contributing factors, and the
+    distribution of injuries or deaths are the only columns present in every data point. Some data points lack
+    coordinate data but have street data, some lack street data but have coordinate data, and some lack both. As
+    expected, it's a bit of a mess: there are even a number of rows which do not indict any vehicle at all in the
+    accident! The number of records for each column is summarized in the table below.
+ 
+    As expected, the data took a little bit of effort to clean up and enrich. I used Python to merge the date and
+    time columns into a single datetime column and used the Google Geocoding API to attach
+    coordinates to recorded fatalaties which had street data but lacked coordinates, of which there are approximately
+    150 (!). In a few cases there were records in which fatalities occurred but for which there was no geographic
+    information whatsoever. That data was definitely present in the filing officers' reports—it's almost
+    shameful that such empty entries exist in the publicly accessible dataset!!!
+ 
+    Reams and reams and reams of reports, filings, and research studies have been done on the causes and trends
+    behind vehicular deaths in New York City and the wider world alike. The causes and outcomes of automobile
+    accidents are well-known and hard to address, and we found it easier to focus on an aspect of the problem which
+    is easier to fix—its geography.
+ 
+    We used Tableau to examine traffic fatality hotspots in the city.
+    In the following visualization, the number of accidents tagged to a particular location is represented by size:
+    the more reports, the wider the circle. The color of the circles, on the other hand, indicates the
+    fatalness at that location: the redder the circle, the higher the average number of deaths per accident.
+    Together this provides us with a summary of especially dangerous accident locations in the city.
+ 
+    The larger and brighter the circle, the stronger the evidence that that specific location is inherently
+    unsafe—and needs addressing.
+ 
+    Use the "Average Fatalness" filter to adjust the range of dangerousness represented in the data: if you set the
+    minimum to 0.0 the software will plot every single accident in the city; if you set the maximum to 1.0 it will
+    include "singleton points", places where only a single accident occurred but that lone accident was deadly. Use
+    the "Count" filter to filter the number of accidents per site: again, setting this to 1 will plot every single
+    point, while raising it to a high value will plot only the most accident-prone locations.
+ 
+    This visualization is of course not definitive, but it gives us a basis from which to begin investigating
+    particularly outstanding points to see what makes them problematic.
+ 
+    To get a feeling for the type of analysis that one might now want to do, let's take a look at an example accident
+    hotspot in the city.
+ 
+    The following location, the site of 44 accidents in the past four-and-a-half years, was the site of a particularly deadly
+    accident which killed five—single-handedly making it the location of more motor accident deaths than any
+    other in New York City.
+ 
+    A short traffic-controlled overpass on a major street (Atlantic Avenue) merging into a single
+    lane, intersecting the entrance onto a major expressway (the Van Wyck), with the bonus industrial chic of a
+    train overpass into an adjacent train yard? Yikes!
+ 
+    The perennial New York City construction probably doesn't help.
+ 
+    The highest fatalness occurs at locations which have only suffered a single accident, but for which that lone
+    accident was deadly: there are nine such points in the city, corresponding with a fatalness of 1.0. However, a
+    single accident is not in and of itself strong evidence that a particular location is dangerous: this is
+    much more likely to be a case in which external factors, like speeding or drunk driving, were predominant.
+ 
+    For this reason it is necessary to augment this metric with an understanding of the number of accidents at the
+    location. The interpretative difficulty is that deadly accidents are a fundamentally rare event: a location which
+    happens to have suffered two fatal accidents will at first glance appear to be twice as deadly as another
+    neighboring one which suffered one, or none, even though (as often happens) that other location might
+    actually be more accident prone than its neighbor (in terms of the number of collisions recorded).
+ 
+    Approximately 0.1225% percent of motor accidents are deadly (942 records out of 769,054 total).
+    However, highly accident-prone areas are safer than average, presumably because more thought and more
+    effort has gone, on the part of traffic controllers and of the community alike, towards improving traffic flow
+    there. So while the chances of getting into an accident getting onto the Manhattan, Brooklyn, or Queensboro
+    bridges is alarmingly high, the chances of worse are tiny. This leads to the following counter-intuitive
+    observation:
+ 
+    The most accident-prone locations in New York City are approximately half as dangerous as average.
+ 
+    The intersection in our case study is the only place in the city to have suffered five deaths; another location at
+    the water's edge in Astoria killed four
+    in 2014. There are three locations which suffered three fatalities, a small enough number that these accident
+    locations can be ascribed to chance. 25 locations have been the site of two deaths and 912 have been the site of
+    one deaths, for a total of 980 geographically-isolatable fatalities.
+ 
+    There are no points in New York City which are in and of themselves outstandingly dangerous, and so there's no
+    way to say concretely that any one location is "the worst"—and, thankfully, this is to be expected, as any
+    such location would have either long ago been addressed, or, more likely, never have been built at all.
+ 
+    Preventing accident pile-on points, on the other hand, seems to have proven to be a much harder task; but if our
+    goal is to reduce traffic fatalities, accident hotspots, though interesting in and of themselves
+    (and the subject of my next post!), are a red herring.
+ 
+    Our data indicates that the bulk of the addressable traffic fatality risk in New York City is diffusely
+    distributed amongst moderately-active local streets.
+ 
+    Thus though there are no commanding "it points" to be revealed in the data, this visualization is nevertheless
+    useful for is constructing a neighborhood-level understanding of which areas and intersections in the area are
+    most troubling. Try browsing through your own neighborhood, workplace, or commute. What areas did you expect
+    would be problematic? Were you correct in your supposition? Which areas surprised you? Why is that?
+ 
+    Find something interesting? Leave a message in the comment so that we can all hear about it!
+ 
+    This post is the first of a two-part series dissecting motor vehicle collisions in New York City: for the second part go here.
+ 

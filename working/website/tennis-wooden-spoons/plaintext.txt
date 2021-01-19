@@ -1,0 +1,36 @@
+
+    The women's tennis world got an interesting trivia night entry this month. The highest tier of tennis tournaments are the Grand Slams, four of which are held every year. Jeļena Ostapenko, a young and hard-hitting Latvian player, shook things up in 2017 by winning one of them, the French Open, securing the first French Cup win by an unseeded (low-ranked) player since 1933.
+ 
+    Well, the French Open came and went again, and this year we saw defending champion Ostapenko win...a wooden spoon.
+ 
+    The wooden spoon is a booby prize of sorts for any player in a single-elimination tournament who is defeated by another player in the first round, who is then defeated by another player in the second, who is then defeated by someone else in the third, and so on, all the way up to the second-place finisher (who loses to the tournament champion in the final).
+ Ironically, defending champion Jelena Ostapenko wins the wooden spoon.She l. to Kozlova, who. l. to Siniakova, who l. to Strycova, who l. to Putintseva, who l. to Keys, who l. to Stephens, who l. to Halep. #RG18 
+    Whereas the champion sits atop the longest possible list of wins, the holder of the wooden spoon sits beneath the longest possible list of losses. Therefore if the champion of the tournament is supposedly the best player there, then logically the holder of the wooden spoon is the worst.
+ 
+    However, this is only really true if matches are deterministic, and the winner of each match is always the better of the two players. In reality, there is a lot of randomness involved (just enough to make the sport exiting). In almost every sport even top-ranked players are statistically likely to eat a shock first-round exit from time to time.
+ 
+    This got me thinking. Every tournament has a wooden spoon holder (just as every tournament has a champion). Who are the wooden spoon holders? How often do top-ranking players earn them? Is Ostapenko's un-slam really all that rare?
+ 
+    The best list I could find is years out of date, and only covers the ATP. The data is out there, so I did some quick number crunching.
+ 
+    Here is the list for the men's tour (the ATP). The numbers next to the players' names are their seeds, for those players that were ranked highly enough to receive seeded entry into the tournament.
+ 
+    The highest-rank seed ever to hold the spoon is Goran Ivanisevic, who was the fourth seed in the 1995 Australian
+    Open. If you want to argue over the best-ever player to hold the anti-slam, John McEnroe (former number
+    one, 7-time slam winner) held the spoon at Wimbledon in 1978, and Rafael Nadal (current number
+    one, 17-time slam winner) held it at the 2016 Australian Open.
+ 
+    In fact, at least four of the players on this list have won a Grand Slam, and at least three have spent time
+    ranked number 1 in the world. It's looking like Ostopenko is in good company!
+ 
+    What about the women's side?
+ 
+    This list is admittedly sparser. You have to go back to the 1975 Australian Open to find another seed as highly
+    ranked who performed as poorly as Ostapenko did. Still, there are a couple of other notable names on this list:
+    former world number 1 Karolina Pliskova was left with the spoon at US Open 2015, and former world number 1 and
+    1-time slam winner Jelena Jankovic got it at the 2016 French Open.
+ 
+    If you include non-Slam tournaments spoons are even more common: among the Big 4 Nadal and Federer have four apiece, Murray two, and Djokovic none (there's a running count elsewhere on the Internet).
+ 
+    Ostapenko is clearly in good company!
+ 

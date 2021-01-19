@@ -1,0 +1,35 @@
+
+    Wherever there are probabilities, there are pseudo-random
+    number generators. RNGs generate nominally random numbers but can be made deterministic by passing a "random
+    seed". Though the output looks random to us, it's easily reproducible—as long as you use the same
+    seed, the output will be the same. This makes debugging probabilitic algorithms much easier, and since probabilities
+    are everywhere, random seeds are too.
+ 
+    The trouble is that random seeds are fixed numbers (they serve no purpose otherwise), which means that get
+    picked by humans, and humans are terrible random number generators. Here, try it yourself!. What's worse, random seeds
+    are chosen not just by humans but by programmers, indiviudals who like to think that they are quirky and
+    different but oftentimes quirk and differentiate themselves right back into their own peculiar mean.
+ 
+    Case in point: the number 42, the "ordinary, smallish number" chosen by English writer Douglass Adams to be
+    "the Answer to the Ultimate Question of Life, the Universe,
+    and Everything" in the science fiction series "Hitchhiker's Guide to the Galaxy". But if you are reading this
+    blog you probably already know that—the series is a cultural touchstone of the dog-eared programmer of the
+    day. Even Python BDFL (benevolent dictator for life, a term commonly endowed to the creator of a popular
+    programming language—see what I mean?) Guido van Rossum has
+    been known to name-drop it from time to time.
+ 
+    I was curious what random seeds people were choosing for their programs, and where the number 42 would rank.
+ 
+    Popular code-hosting website GitHub recently announced a searchable
+    Google BigQuery index of all of the contents of all open source code that they host, and this was a perfect
+    opportunity to give it a whirl.
+ 
+    I threw the following query at the Google BigQuery interface:
+ 
+    And, a small amount of
+    processing later, here are the top 20 results:
+ 
+    Fascinating!
+ 
+    You can see the full output on GitHub.
+ 

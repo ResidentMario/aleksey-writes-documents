@@ -1,0 +1,119 @@
+
+    Last week I tackled private
+    landownership in New York City, using entity information in the public PLUTO dataset to
+    examine the largest public and private landowners in the city. This week I'm continuing my exploration of the
+    dataset by looking at addressing in New York City: after all once can do some interesting things with a record of
+    every single address New York City!
+ 
+    To start with let's take a look at the number of addresses by borough:
+ 
+    Queens and Brooklyn together comprise 70% of the addresses in New York City. Manhattan by contrast
+    provides just 5% of them, while Staten Island and the Bronx split the remaining difference at around 12.5% each.
+    In other words, for every 20 addresses 1 is in Manhattan, 2 are in the Bronx, 3 are in Staten Island, 6 are in
+    Brooklyn, and 8 are in Queens.
+ 
+    The scale of the difference between the number of residences in Manhattan and the number in the other boroughs
+    is surprising, but remember: Manhattan squeezes about two-thirds the population of Queens onto an island
+    one-quarter the size.
+ 
+    A city block in Manhattan is wider than it is long, with each horizontal avenue measuring out approximately
+    three diagonal streets in length. Using a figure given by The New
+    York Times in 2006 (if you like this sort of thing—I know I do—also check out the
+    breakdown given in the 1892 World Almanac), this makes for 140 streets per square mile. By summing up the
+    total lot areas and filtering out parks and greenspaces we can measure the average number of properties per city
+    block by borough:
+ 
+    Brooklyn is easily the densest of the boroughs, packing twice as many addresses per block as Manhattan, the land
+    of skyscrapers.
+ 
+    Staten Island is comparably dense with Manhattan. Staten Island is the most suburban of the five boroughs, so
+    lots there are larger as a natural consequence of its lower population density. The Bronx by contrast, is the
+    most consolidated of the outer boroughs.
+ 
+    These facts becomes easy to see if we swap to measuring density by number of persons per address:
+ 
+    Manhattan absolutely crushes this ranking, packing fifteen times as many people per address (61) as
+    Staten Island does (4)! If you ever wondered why people try so hard to live in "the City", this is why.
+ 
+    As per our discussion before, the Bronx (approximately 18 residents per addresss) is two-and-a-half as dense per
+    address as runner-up Queens is (approximately 7 residents per address).
+ 
+    Queens fits somewhat fewer people (2.3 versus 2.6 million) onto a significantly greater area (109 versus 71 square
+    miles), yet—as a consequence of having such a smaller lot size—Brooklyn nevertheless has
+    a comparable number of residents per building (approximately 5 residents per address).
+ 
+    If we mix these two metrics up we can compute the average number of people per block for each of the boroughs:
+ 
+    Though Brooklyn and Queens again swap places, the overall picture is about the same.
+ 
+    Now that we're done counting addresses let's examine what they actually look like, starting with their
+    length.
+ 
+    Not every property in New York City has an address: parks don't, for instance, nor do many empty lots, though
+    others get assigned the name of the nearest street. There are also a handful of "other options" in the
+    dataset as well: for instance there are several entities addressed as BODY OF
+    WATER, and at least one, I kid you not, CLIFF.
+ 
+    Let's assume that a valid address is of the form 120 COURT STREET, that is, an address
+    number followed by at least two strings seperate strings for the street. There's one important exception to this
+    rule—Manhattan piers are simply a pier and a number, e.g. PIER 19. We'll include
+    those, too.
+ 
+    It seems that address lengths are approximately normally distributed in New York City, and surprisingly tightly
+    so: half of the addresses in New York City are 14, 15, or 16 non-space characters long.
+ 
+    Non-mean address lengths distribute approximately evenly into either tail, but the right tail is slightly
+    thinner and longer—e.g. "long" addresses tend to be especially long, whilst "short" addresses tend to be
+    only somewhat shorter than average.
+ 
+    There is no single shortest address in New York City: there are a number of two-number piers, e.g. PIER 40 etc. Following up on these, there are a sizable number of short
+    place-names, such as 74 6 ROAD in Queens or 5 3
+    PLACE in Brooklyn, which seem to occur mostly in these two boroughs.
+ 
+    There is also no single longest address: there are over a hundred addresses in Queens on Woodhaven Boulevard
+    with names like 103-29A WOODHAVEN BOULEVARD which take the prize for longest in
+    the city.
+ 
+    Let's tokenize address endings to see which words (excluding individual numbers and letters) are most common.
+    Amazingly there are just 100 of them in the entire city! Here's a work cloud with every single option:
+ 
+    Of course a handful of these endings dominate the entire set:
+ 
+    Indeed, place-name endings have very little variety. 82% of the addresses in New York City end in either
+    "Street" or "Avenue".
+ 
+    The top 20 most common endings, shown here, cover 99% of addresses in New York City!
+ 
+    Broadway appears on the list above because of its almost unique habit of naming addresses all on its own: whilst a
+    building on another avenue would be "123 3rd Avenue", when they are on Broadway they are more usually, though not
+    always, simply 123 Broadway. Combined with the fact that the Broadway is the longest street in New York
+    City, this makes Broadway one of the more heavily addressed street in New York City, with 1118 addresses overall.
+ 
+    Expanding on this observation, here are the five most heavily addressed streets in each borough:
+ 
+    But this analysis is highly limited. Not only is addressing not totally correlated with length, but we've also
+    constrained ourselves by naively examining streets on a per-borough basis. But we have a complete record not only
+    of the addresses associated with each street but also of their coordinates—can't we take that and somehow
+    transform it into a representation of the streets themselves?
+ 
+    This is an algorithmically interesting question with a very non-trivial solution that I thought I would say a
+    few words about for the interested. Using Broadway as our (above averagely complex) test case, here are the
+    points that I start with:
+ 
+    This is just a cloud of points in no particular order; to get a line out of it we first have to order it somehow.
+    We can achieve this by fitting a linear regressor to the point cloud, then calculating a rolling average of
+    centroids for each five-tuple of points to shift the center of mass onto the street (instead of on the buildings
+    besides it). Finally we run the points through the Visvalingam
+    line simplification algorithm to get our final result—one reasonably well-fitted, reasonably simple
+    Broadway street polyline:
+ 
+    This is a pretty interesting result. Give me the name of any street in New York City and I can give you the polyline
+    encoding it! Let's use this tool to look at street lengths in New York City. If you sort all of the streets in
+    New York City by length you get a neat if slightly exaggerated exponential curve:
+ 
+    And so finally—the ten longest streets in New York City (units in miles):
+ 
+    Want more? Ben Wellington of IQuantNY awhile ago published analyses on Manhattan
+        addressing and street ending
+        tions that are well worth reading!
+ 
