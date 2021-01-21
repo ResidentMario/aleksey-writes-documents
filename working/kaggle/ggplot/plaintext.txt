@@ -1,0 +1,1 @@
+This is just a small demo notebook showing that the ggplot library doesn't work as expected inside the Kaggle interface. 

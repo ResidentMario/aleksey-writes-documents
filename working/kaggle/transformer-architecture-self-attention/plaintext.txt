@@ -1,0 +1,1 @@
+This notebook contains my notes on the transformer architecture, based on The Illustrated Transformer.     

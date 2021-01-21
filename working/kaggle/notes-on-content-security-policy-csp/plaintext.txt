@@ -1,0 +1,1 @@
+This notebook contains notes on the web content security policy feature; a feature of HTTP that protects against XSS attacks. It summarizes the corresponding MDN page. Configuration is via an HTTP header initially set by the server. Some examples follow. Content-Security-Policy: default-src 'self' -- own origin only, excluding subdomains. 

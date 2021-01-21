@@ -1,0 +1,9 @@
+For justification the authors point out the following: A desirable property of a system which is able to reason about images is to disentangle object
+  pose and part deformation from texture and shape. The introduction of local max-pooling layers in
+  CNNs has helped to satisfy this property by allowing a network to be somewhat spatially invariant
+  to the position of features. However, due to the typically small spatial support for max-pooling
+  (e.g. 2 × 2 pixels) this spatial invariance is only realised over a deep hierarchy of max-pooling and
+  convolutions, and the intermediate feature maps (convolutional layer activations) in a CNN are not
+  actually invariant to large transformations of the input data [6, 22]. This limitation of CNNs is due
+  to having only a limited, pre-defined pooling mechanism for dealing with variations in the spatial
+  arrangement of data. [,,,] This allows networks which include spatial transformers to not only select regions of an image that are most relevant (attention), but also to transform those regions to a canonical, expected pose to simplify recognition in the following layers The PyTorch documenation includes an intermediate-level tutorial implementing a spatial transformer network. For a bit more practice thinking about layers and layer architecture and translating architectures from papers into code, I'm going to go ahead and try to replicate this result in pytorch. Well. The PyTorch version included in PyTorch is out of date! Oh well. 

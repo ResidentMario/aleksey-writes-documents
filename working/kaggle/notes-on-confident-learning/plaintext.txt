@@ -1,0 +1,1 @@
+This notebook contains my notes on a recent paper on the subject of "confident learning", starting with my notes on a summary of the paper by the following blog post: "An Introduction to Confident Learning: Finding and Learning with Label Errors in Datasets". Data errors are grouped into three categories: Confident learning uses the following techniques in composite: 

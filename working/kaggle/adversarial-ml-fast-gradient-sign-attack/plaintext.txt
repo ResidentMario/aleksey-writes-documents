@@ -1,0 +1,1 @@
+These notes are drawn from the PyTorch adversarial machine learning tutorial: https://pytorch.org/tutorials/beginner/fgsm_tutorial.html.  

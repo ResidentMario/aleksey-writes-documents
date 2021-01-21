@@ -1,0 +1,1 @@
+This notebook consists of my notes on the blog post "Everything PKI". So this allows: On the Internet you earn a HTTPS certificate using (1) and others verify that you are genuine using (2). 

@@ -1,0 +1,1 @@
+These notes from "Arrow - memory layout". Arrays are relocatable (e.g. for RPC/transient storage) without pointer swizzling. Another way of putting this is that contiguous memory regions can be migrated to a different address space (e.g. via a memcpy-type of operation) without altering their contents. Becomes: 

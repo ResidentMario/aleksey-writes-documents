@@ -1,0 +1,1 @@
+This text, which appears after a closed <table> tag,  will appear black during interactive cell editing, but gray in preview mode and render mode. This text be be normal (black) again. 

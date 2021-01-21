@@ -1,0 +1,1 @@
+These notes taken on MDN Tutorial on Canvas. The following pair of articles provide additional and highly useful information on canvas on and on integrating canvas into a React application, respectively: 

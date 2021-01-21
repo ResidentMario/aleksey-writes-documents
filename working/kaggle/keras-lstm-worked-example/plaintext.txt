@@ -1,0 +1,1 @@
+This notebook was forked from this one, which built a Keras LSTM for one of the Jigsaw toxicity competitions. All of the code has been annotated. 

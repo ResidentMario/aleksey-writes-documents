@@ -1,0 +1,1 @@
+Some Unix commands for basic exploration of the data. 2000 active feeds with more than 100 articles per week: Unique domains and their frequency in the dataset: 

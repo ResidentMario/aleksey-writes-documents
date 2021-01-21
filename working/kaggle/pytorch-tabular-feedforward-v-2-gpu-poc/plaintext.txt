@@ -1,0 +1,1 @@
+In this notebook we move the model onto GPU. 

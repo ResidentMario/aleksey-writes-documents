@@ -1,0 +1,1 @@
+curl works with a lot of different protocols, these notes only pertain to the part that I care about: HTTP and HTTPS. These notes based on https://curl.haxx.se/docs/manual.html. 
