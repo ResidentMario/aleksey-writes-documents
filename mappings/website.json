@@ -1,171 +1,171 @@
 [
     {
-        "uid": "an-exercise-in-probability.html",
+        "uid": "an-exercise-in-probability",
         "link": "https://residentmar.io/2015/11/06/an-exercise-in-probability.html",
         "backup": "https://web.archive.org/web/http://www.residentmar.io/2015/11/06/an-exercise-in-probability.html"
     },
     {
-        "uid": "bay-area-citibike-map.html",
+        "uid": "bay-area-citibike-map",
         "link": "https://residentmar.io/2016/09/14/citibike-map.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/09/14/citibike-map.html"
     },
     {
-        "uid": "coding-challenges.html",
+        "uid": "coding-challenges",
         "link": "https://residentmar.io/2018/08/14/solving-algorithms.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/08/14/solving-algorithms.html"
     },
     {
-        "uid": "designing-dataviz-apis.html",
+        "uid": "designing-dataviz-apis",
         "link": "https://residentmar.io/2018/05/30/dataviz-apis.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/05/30/dataviz-apis.html"
     },
     {
-        "uid": "govtech-collaboration.html",
+        "uid": "govtech-collaboration",
         "link": "https://residentmar.io/2018/08/19/finding-a-model-for-collaboration.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/08/19/finding-a-model-for-collaboration.html"
     },
     {
-        "uid": "gtfs-tripify.html",
+        "uid": "gtfs-tripify",
         "link": "https://residentmar.io/2018/01/29/gtfs-tripify.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/01/29/gtfs-tripify.html"
     },
     {
-        "uid": "jupyter-on-the-cloud.html",
+        "uid": "jupyter-on-the-cloud",
         "link": "https://residentmar.io/2019/01/01/taking-notes-on-the-cloud.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2019/01/01/taking-notes-on-the-cloud.html"
     },
     {
-        "uid": "kaggle-turing-complete.html",
+        "uid": "kaggle-turing-complete",
         "link": "https://residentmar.io/2018/02/25/kaggle-kernels-are-turing-complete.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/02/25/kaggle-kernels-are-turing-complete.html"
     },
     {
-        "uid": "life-of-citibike.html",
+        "uid": "life-of-citibike",
         "link": "https://residentmar.io/2016/08/27/day-in-the-life-of-citibike.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/08/27/day-in-the-life-of-citibike.html"
     },
     {
-        "uid": "null-and-missing-data.html",
+        "uid": "null-and-missing-data",
         "link": "https://residentmar.io/2016/06/12/null-and-missing-data-python.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/06/12/null-and-missing-data-python.html"
     },
     {
-        "uid": "nyc-addressing.html",
+        "uid": "nyc-addressing",
         "link": "https://residentmar.io/2016/06/01/nyc-addresses.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/06/01/nyc-addresses.html"
     },
     {
-        "uid": "nyc-citibike-map.html",
+        "uid": "nyc-citibike-map",
         "link": "https://residentmar.io/2016/09/14/citibike-map.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/09/14/citibike-map.html"
     },
     {
-        "uid": "nyc-collision-hotspots.html",
+        "uid": "nyc-collision-hotspots",
         "link": "https://residentmar.io/2016/03/23/worst-places-to-drive.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/03/23/worst-places-to-drive.html"
     },
     {
-        "uid": "nyc-landowners.html",
+        "uid": "nyc-landowners",
         "link": "https://residentmar.io/2016/05/27/biggest-landowners-nyc.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/05/27/biggest-landowners-nyc.html"
     },
     {
-        "uid": "nyc-property-sales.html",
+        "uid": "nyc-property-sales",
         "link": "https://residentmar.io/2016/06/03/residential-property-sales.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/06/03/residential-property-sales.html"
     },
     {
-        "uid": "nyc-street-trees.html",
+        "uid": "nyc-street-trees",
         "link": "https://residentmar.io/2016/06/04/new-york-city-tree-density.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/06/04/new-york-city-tree-density.html"
     },
     {
-        "uid": "nyc-traffic-fatalities.html",
+        "uid": "nyc-traffic-fatalities",
         "link": "https://residentmar.io/2016/03/19/nyc-motor-vehicle-collisions.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/03/19/nyc-motor-vehicle-collisions.html"
     },
     {
-        "uid": "open-data-portal-anatomy.html",
+        "uid": "open-data-portal-anatomy",
         "link": "https://residentmar.io/2016/08/11/nyc-open-data-portal.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/08/11/nyc-open-data-portal.html"
     },
     {
-        "uid": "open-data-portals.html",
+        "uid": "open-data-portals",
         "link": "https://residentmar.io/2018/06/17/what-next-for-open-data.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/06/17/what-next-for-open-data.html"
     },
     {
-        "uid": "pandas-checkpoints.html",
+        "uid": "pandas-checkpoints",
         "link": "https://residentmar.io/2016/10/29/saving-progress-pandas.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/10/29/saving-progress-pandas.html"
     },
     {
-        "uid": "python-mixins.html",
+        "uid": "python-mixins",
         "link": "https://residentmar.io/2019/07/07/python-mixins.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2019/07/07/python-mixins.html"
     },
     {
-        "uid": "random-seeds.html",
+        "uid": "random-seeds",
         "link": "https://residentmar.io/2016/07/08/randomly-popular.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/07/08/randomly-popular.html"
     },
     {
-        "uid": "second-avenue-subway.html",
+        "uid": "second-avenue-subway",
         "link": "https://residentmar.io/2017/01/12/second-avenue-subway.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2017/01/12/second-avenue-subway.html"
     },
     {
-        "uid": "space-shuttle-challenger.html",
+        "uid": "space-shuttle-challenger",
         "link": "https://residentmar.io/2016/02/07/space-shuttle-challenger.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/02/07/space-shuttle-challenger.html"
     },
     {
-        "uid": "starbucks-two-blocks.html",
+        "uid": "starbucks-two-blocks",
         "link": "https://residentmar.io/2016/02/09/average-chain-distance.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/02/09/average-chain-distance.html"
     },
     {
-        "uid": "streetmapper.html",
+        "uid": "streetmapper",
         "link": "https://residentmar.io/2019/08/03/buildings-blocks-streets-points.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2019/08/03/buildings-blocks-streets-points.html"
     },
     {
-        "uid": "subway-explorer.html",
+        "uid": "subway-explorer",
         "link": "https://residentmar.io/2018/08/29/subway-explorer.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/08/29/subway-explorer.html"
     },
     {
-        "uid": "tennis-wooden-spoons.html",
+        "uid": "tennis-wooden-spoons",
         "link": "https://residentmar.io/2018/06/10/tennis-wooden-spoons.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/06/10/tennis-wooden-spoons.html"
     },
     {
-        "uid": "three-kinds-of-data-scientists.html",
+        "uid": "three-kinds-of-data-scientists",
         "link": "https://residentmar.io/2018/10/18/roles-in-data-science.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2018/10/18/roles-in-data-science.html"
     },
     {
-        "uid": "two-million-311-calls.html",
+        "uid": "two-million-311-calls",
         "link": "https://residentmar.io/2017/02/13/311.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2017/02/13/311.html"
     },
     {
-        "uid": "watsongraph.html",
+        "uid": "watsongraph",
         "link": "https://residentmar.io/2016/02/11/watsongraph-visualization.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/02/11/watsongraph-visualization.html"
     },
     {
-        "uid": "wikipedia-signpost-popularity.html",
+        "uid": "wikipedia-signpost-popularity",
         "link": "https://residentmar.io/2016/01/17/signpost-views.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/01/17/signpost-views.html"
     },
     {
-        "uid": "wikiprojects-analysis.html",
+        "uid": "wikiprojects-analysis",
         "link": "https://residentmar.io/2016/02/15/wikiprojects.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/02/15/wikiprojects.html"
     },
     {
-        "uid": "wmf-executive-crisis.html",
+        "uid": "wmf-executive-crisis",
         "link": "https://residentmar.io/2016/02/20/wikimedia-foundation-turnover.html",
         "backup": "https://web.archive.org/web/https://residentmar.io/2016/02/20/wikimedia-foundation-turnover.html"
     }

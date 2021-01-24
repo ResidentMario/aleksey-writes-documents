@@ -1,136 +1,136 @@
 [
     {
-        "uid": "access-control-with-pip.html",
+        "uid": "access-control-with-pip",
         "link": "https://spell.ml/blog/fine-grained-access-control-in-spell-X6HYGRAAACAAZn05",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/fine-grained-access-control-in-spell-X6HYGRAAACAAZn05"
     },
     {
-        "uid": "automated-machine-failure.html",
+        "uid": "automated-machine-failure",
         "link": "https://spell.ml/blog/automated-machine-failure-recovery-Xp3TEhEAACUAYwPM",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/automated-machine-failure-recovery-Xp3TEhEAACUAYwPM"
     },
     {
-        "uid": "batch-scoring-workflow.html",
+        "uid": "batch-scoring-workflow",
         "link": "https://spell.ml/blog/batch-scoring-on-big-data-using-scikit-learn-and-spell-X4YjZBEAACQAHtJw",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/batch-scoring-on-big-data-using-scikit-learn-and-spell-X4YjZBEAACQAHtJw"
     },
     {
-        "uid": "bob-ross.html",
+        "uid": "bob-ross",
         "link": "https://spell.ml/blog/paint-with-ml-deep-learning-X2ALJRAAACQAXYTZ",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/paint-with-ml-deep-learning-X2ALJRAAACQAXYTZ"
     },
     {
-        "uid": "cluster-migration.html",
+        "uid": "cluster-migration",
         "link": "https://spell.ml/blog/moving-between-X02eZhIAACMAnER0",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/moving-between-X02eZhIAACMAnER0"
     },
     {
-        "uid": "custom-docker-images.html",
+        "uid": "custom-docker-images",
         "link": "https://spell.ml/blog/using-custom-docker-images-in-spell-runs-and-workspaces-X0AIxhIAACMAYANQ",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/using-custom-docker-images-in-spell-runs-and-workspaces-X0AIxhIAACMAYANQ"
     },
     {
-        "uid": "custom-instance-profiles-aws.html",
+        "uid": "custom-instance-profiles-aws",
         "link": "https://spell.ml/blog/accessing-aws-services-from-spell-X6lgGxIAACEAUE9q",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/accessing-aws-services-from-spell-X6lgGxIAACEAUE9q"
     },
     {
-        "uid": "custom-instance-profiles-gcp.html",
+        "uid": "custom-instance-profiles-gcp",
         "link": "https://spell.ml/blog/accessing-gcp-services-from-spell-X-zmohAAACMAzFaD",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/accessing-gcp-services-from-spell-X-zmohAAACMAzFaD"
     },
     {
-        "uid": "dask-emr.html",
+        "uid": "dask-emr",
         "link": "https://spell.ml/blog/large-scale-etl-jobs-using-dask-Xyl8GhEAACQAjK6h",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/large-scale-etl-jobs-using-dask-Xyl8GhEAACQAjK6h"
     },
     {
-        "uid": "deep-learning-on-the-cloud.html",
+        "uid": "deep-learning-on-the-cloud",
         "link": "https://spell.ml/blog/deep-learning-infrastructure-in-2020-Xr2s7xEAACEAv28w",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/deep-learning-infrastructure-in-2020-Xr2s7xEAACEAv28w"
     },
     {
-        "uid": "distributed-training-horovod.html",
+        "uid": "distributed-training-horovod",
         "link": "https://spell.ml/blog/distributed-model-training-using-horovod-XvqEGRUAACgAa5th",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/distributed-model-training-using-horovod-XvqEGRUAACgAa5th"
     },
     {
-        "uid": "distributed-training-pytorch.html",
+        "uid": "distributed-training-pytorch",
         "link": "https://spell.ml/blog/pytorch-distributed-data-parallel-XvEaABIAAB8Ars0e",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/pytorch-distributed-data-parallel-XvEaABIAAB8Ars0e"
     },
     {
-        "uid": "github-actions-on-spell.html",
+        "uid": "github-actions-on-spell",
         "link": "https://spell.ml/blog/implementing-cicd-on-spell-with-github-actions-YACQmBAAACIAI1A3",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/implementing-cicd-on-spell-with-github-actions-YACQmBAAACIAI1A3"
     },
     {
-        "uid": "hyperparameter-search-workflow.html",
+        "uid": "hyperparameter-search-workflow",
         "link": "https://spell.ml/blog/an-introduction-to-hyperparameter-search-with-cifar10-Xo8_6BMAACEAkwVs",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/an-introduction-to-hyperparameter-search-with-cifar10-Xo8_6BMAACEAkwVs"
     },
     {
-        "uid": "ludwig.html",
+        "uid": "ludwig",
         "link": "https://spell.ml/blog/an-introduction-to-automl-with-ludwig-X_OSWhAAACMA6eYD",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/an-introduction-to-automl-with-ludwig-X_OSWhAAACMA6eYD"
     },
     {
-        "uid": "mixed-precision-training.html",
+        "uid": "mixed-precision-training",
         "link": "https://spell.ml/blog/mixed-precision-training-with-pytorch-Xuk7YBEAACAASJam",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/mixed-precision-training-with-pytorch-Xuk7YBEAACAASJam"
     },
     {
-        "uid": "ml-workspace-of-the-future.html",
+        "uid": "ml-workspace-of-the-future",
         "link": "https://spell.ml/blog/the-learning-workspace-of-the-future-X1_MkRAAACMAXG0v",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/the-learning-workspace-of-the-future-X1_MkRAAACMAXG0v"
     },
     {
-        "uid": "model-pruning-pytorch.html",
+        "uid": "model-pruning-pytorch",
         "link": "https://spell.ml/blog/model-pruning-in-pytorch-X9pXQRAAACIAcH9h",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/model-pruning-in-pytorch-X9pXQRAAACIAcH9h"
     },
     {
-        "uid": "model-quantization-pytorch.html",
+        "uid": "model-quantization-pytorch",
         "link": "https://spell.ml/blog/pytorch-quantization-X8e7wBAAACIAHPhT",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/pytorch-quantization-X8e7wBAAACIAHPhT"
     },
     {
-        "uid": "model-serving-overview.html",
+        "uid": "model-serving-overview",
         "link": "https://spell.ml/blog/mlops-concepts-model-serving-X385lREAACcAAGzS",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/mlops-concepts-model-serving-X385lREAACcAAGzS"
     },
     {
-        "uid": "rapids-data-analytics.html",
+        "uid": "rapids-data-analytics",
         "link": "https://spell.ml/blog/getting-oriented-in-the-rapids-distributed-ml-ecosystem-part-1-X1gixBIAAJ7nyzHa",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/getting-oriented-in-the-rapids-distributed-ml-ecosystem-part-1-X1gixBIAAJ7nyzHa"
     },
     {
-        "uid": "rapids-models.html",
+        "uid": "rapids-models",
         "link": "https://spell.ml/blog/getting-oriented-in-the-rapids-distributed-ml-ecosystem-part-2-X68AOxIAACAAacZk",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/getting-oriented-in-the-rapids-distributed-ml-ecosystem-part-2-X68AOxIAACAAacZk"
     },
     {
-        "uid": "scaling-mlops.html",
+        "uid": "scaling-mlops",
         "link": "https://spell.ml/blog/components-of-an-mlops-strategy-X4d_KREAACUAvo6M",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/components-of-an-mlops-strategy-X4d_KREAACUAvo6M"
     },
     {
-        "uid": "snowflake-on-spell.html",
+        "uid": "snowflake-on-spell",
         "link": "https://spell.ml/blog/snowflake-with-spell-X8qCbBAAACMAKZIf",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/snowflake-with-spell-X8qCbBAAACMAKZIf"
     },
     {
-        "uid": "spot-cost-reduction.html",
+        "uid": "spot-cost-reduction",
         "link": "https://spell.ml/blog/reduce-gpu-model-training-costs-using-spot-XqtgJBAAACMAR6h8",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/reduce-gpu-model-training-costs-using-spot-XqtgJBAAACMAR6h8"
     },
     {
-        "uid": "spot-interrupts-aws.html",
+        "uid": "spot-interrupts-aws",
         "link": "https://spell.ml/blog/aws-spot-interrupts-X_ZJ6xAAACEA9fGx",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/aws-spot-interrupts-X_ZJ6xAAACEA9fGx"
     },
     {
-        "uid": "spot-interrupts-restarts.html",
+        "uid": "spot-interrupts-restarts",
         "link": "https://spell.ml/blog/spot-interruptions-XzQ5jRIAACIAK3h2",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/spot-interruptions-XzQ5jRIAACIAK3h2"
     }
