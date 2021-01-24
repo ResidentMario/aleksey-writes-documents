@@ -5,7 +5,7 @@
         "backup": "https://web.archive.org/web/https://spell.ml/blog/fine-grained-access-control-in-spell-X6HYGRAAACAAZn05"
     },
     {
-        "uid": "automated-machine-failure",
+        "uid": "automated-machine-failure-recovery",
         "link": "https://spell.ml/blog/automated-machine-failure-recovery-Xp3TEhEAACUAYwPM",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/automated-machine-failure-recovery-Xp3TEhEAACUAYwPM"
     },
@@ -70,12 +70,12 @@
         "backup": "https://web.archive.org/web/https://spell.ml/blog/an-introduction-to-hyperparameter-search-with-cifar10-Xo8_6BMAACEAkwVs"
     },
     {
-        "uid": "ludwig",
+        "uid": "ludwig-overview",
         "link": "https://spell.ml/blog/an-introduction-to-automl-with-ludwig-X_OSWhAAACMA6eYD",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/an-introduction-to-automl-with-ludwig-X_OSWhAAACMA6eYD"
     },
     {
-        "uid": "mixed-precision-training",
+        "uid": "mixed-precision-training-pytorch",
         "link": "https://spell.ml/blog/mixed-precision-training-with-pytorch-Xuk7YBEAACAASJam",
         "backup": "https://web.archive.org/web/https://spell.ml/blog/mixed-precision-training-with-pytorch-Xuk7YBEAACAASJam"
     },
